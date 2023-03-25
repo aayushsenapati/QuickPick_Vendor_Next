@@ -21,11 +21,16 @@ export default async (req, res) => {
         
 
         //insert new client into db 
-        const data = await collection.insertOne(newClient);
+        const check = await collection.findOne({email:req.query.client})
+        console.log("Data retrieved:",check)
+        if(!check){
+            t = await collection.insertOne(newClient);
+            console.log("This is after insert: ",t)
+        }
         
 
-        console.log(data)
-        res.json(data);
+        // res.json(data);
+        res.send("Sucess")
     } catch (e) {
         console.error(e);
     }

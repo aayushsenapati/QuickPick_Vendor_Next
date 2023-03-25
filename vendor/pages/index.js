@@ -22,6 +22,7 @@ export default function Home() {
   const router = useRouter();
   if(user){
     axios.get('/api/newClient/'+user.email)
+    .then(()=>{console.log("Successfully Inserted")},()=>{conslode.log("There was an error")})
     
 
 
