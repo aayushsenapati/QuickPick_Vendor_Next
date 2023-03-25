@@ -26,6 +26,7 @@ export default function Home() {
     return (
       <>
         <Link href="/orders">Orders</Link>
+        <Link href="/menu">Menu</Link>
       </>
     )
   }
