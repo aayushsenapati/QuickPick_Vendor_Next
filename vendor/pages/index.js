@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/router';
 import {useEffect} from 'react'
+import axios from "axios";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,6 +24,10 @@ export default function Home() {
   console.log(user)
   const router = useRouter();
   if(user){
+    axios.get('/api/newClient/'+user.email)
+    
+
+
     return (
       <>
         <Link href="/orders">Orders</Link>
