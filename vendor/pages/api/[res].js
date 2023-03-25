@@ -1,8 +1,6 @@
 import clientPromise from "/lib/mongodb";
 
 
-
-
 export default async (req, res) => {
     try {
         const rest=req.query
