@@ -136,8 +136,7 @@ export default function Home() {
     )
   }
   else{
-    useEffect(()=>{
-    router.replace('/login')},[])
+    router.replace('/login')
   }
   
 
