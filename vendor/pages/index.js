@@ -19,9 +19,6 @@ export default function Home() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  console.log(user.email);
-  
-  console.log(user)
   const router = useRouter();
   if(user){
     axios.get('/api/newClient/'+user.email)
