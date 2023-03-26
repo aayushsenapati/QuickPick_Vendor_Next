@@ -21,7 +21,7 @@ export default function Home() {
   if(user){
 
     axios.get('/api/newClient/'+user.email)
-    .then(()=>{console.log("Successfully Inserted")},()=>{conslode.log("There was an error")})
+    .then(()=>{console.log("success creating")},()=>{console.log("There was an error in api/newClient")})
     
 
 
