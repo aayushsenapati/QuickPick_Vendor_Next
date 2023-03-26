@@ -8,8 +8,8 @@ export default async (req, res) => {
         const db = client.db('foodOrders')
         const collection = db.collection('menu');
         const query = { email: req.query.clientRes };
-        const result=await collection.findOne(query, { restaurants: 1 })
-        console.log(result)
+        const result=await collection.find(query,{projection:{restaurants:1,_id:0}}).toArray();
+        console.log(result[0].restaurants)
     } catch (e) {
         console.error(e);
     }
