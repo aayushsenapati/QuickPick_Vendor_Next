@@ -1,23 +1,11 @@
-import { useState } from 'react';
+import axios from "axios";
 
-export default function EditMenu() {
-      //form to enter name and price of item
-      const [name, setName] = useState('');
-      const [price, setPrice] = useState('');
-  
-      const handleSubmit = (e) => {
-          e.preventDefault();
-          console.log(`Name : ${name}, Price : ${price}`);
-      };
+
+export default function EditMenu(props) {
+      axios.get('/api/getClientRest/'+props.user.email)
+    .then((e)=>{console.log(e)},()=>{conslode.log("There was an error in api/getClientRest")})
       return (
-          <form onSubmit={handleSubmit}>
-              <label htmlFor="name">Enter name of item : </label>
-              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-  
-              <label htmlFor="price">Enter price of item : </label>
-              <input type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
-  
-              <button type="submit">Add Item</button>
-          </form>
-        );
+            <><div>{props.user.email}</div>
+            <h1>Test</h1></>
+      )
 }
