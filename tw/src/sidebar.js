@@ -23,18 +23,6 @@ const Sidebar = () => {
           <ArrowBackIosIcon />
         </button>
       ) : (
-        // <svg
-        //   onClick={() => setShowSidebar(!showSidebar)}
-        //   className="fixed  z-30 flex items-center cursor-pointer left-10 top-6"
-        //   fill="#000000"
-        //   viewBox="0 0 100 80"
-        //   width="40"
-        //   height="40"
-        // >
-        //   <rect width="100" height="10"></rect>
-        //   <rect y="30" width="100" height="10"></rect>
-        //   <rect y="60" width="100" height="10"></rect>
-        // </svg>
 
         <button onClick={() => setShowSidebar(!showSidebar)} className="fixed flex z-50 left-5 top-6">
           <MenuIcon className="mt-2" fontSize="large" />
