@@ -18,21 +18,23 @@ export default function EditMenu(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!newFoodItem || !newPrice) return;
-        if (menuobj.menu.some(item => {item.name === newFoodItem;item.price===newPrice})) {
+        //console.log(menuobj)
+        if (menuobj.menu.some(item => { return ((item.name === newFoodItem) && (item.price === newPrice)) })) {
             alert("Food item already present in the menu")
-        } else if(menuobj.menu.some(item => {item.name === newFoodItem;item.price!==newPrice})){
+        } else if (menuobj.menu.some(item => { return ((item.name === newFoodItem) && (item.price !== newPrice)) })) {
+            alert("Updating")//price update
             await axios.post(`/api/addFoodItem/${props.email}?name=${props.restaurant}`, {
                 name: newFoodItem,
                 price: newPrice,
-            });//price update
+            });
         }
 
-        
 
-        setNewFoodItem("");
-        setNewPrice("");
+        mutate(null, true, () => {
+            setNewFoodItem("");
+            setNewPrice("");
+        });
 
-        mutate();
     };
 
     const handleDelete = async (itemId) => {
