@@ -7,7 +7,7 @@ export default async (req, res) => {
         const client = await clientPromise;
         const db = client.db('foodOrders')
         const collection = db.collection('orders');
-        const data = await collection.find({restaurant:rest.res}).toArray();
+        const data = await collection.find({restaurant:rest.orders}).toArray();
         console.log(data)
         res.json(data);
     } catch (e) {

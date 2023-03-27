@@ -11,7 +11,7 @@ export default function AddRest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.get('/api/newRest/'+user.email+`?name=${name}&upi=${upi}`)
-    .then((e)=>{console.log(e)},()=>{conslode.log("There was an error in api/newRest")})
+    .then((e)=>{console.log(e)},()=>{console.log("There was an error in api/newRest")})
     alert("Restaurant added successfully")
     setName('');
     setUpi('');
