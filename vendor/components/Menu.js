@@ -14,6 +14,7 @@ export default function EditMenu(props) {
         `/api/getClientRest/${props.email}/?name=${props.restaurant}`,
         fetcher
     );
+    var t;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,71 +24,83 @@ export default function EditMenu(props) {
             alert("Food item already present in the menu")
         } else if (menuobj.menu.some(item => { return ((item.name === newFoodItem) && (item.price !== newPrice)) })) {
             alert("Updating")//price update
-            await axios.post(`/api/addFoodItem/${props.email}?name=${props.restaurant}`, {
+            await axios.post(`/api/modFoodItem/${props.email}?name=${props.restaurant}`, {
+                name: newFoodItem,
+                price: newPrice,
+            });
+        }
+        else{
+            alert("Adding new item")
+            await axios.post(`/api/modFoodItem/${props.email}?name=${props.restaurant}`, {
                 name: newFoodItem,
                 price: newPrice,
             });
         }
 
 
-        mutate(null, true, () => {
+        mutate(0, true, () => {
             setNewFoodItem("");
             setNewPrice("");
         });
 
     };
 
-    const handleDelete = async (itemId) => {
-        await axios.delete(`/api/deleteFoodItem/${menuobj._id}/${itemId}`);
-        mutate();
+    const handleDelete = async (item) => {
+        await axios.get(`/api/deleteFoodItem/${props.email}/?resName=${props.restaurant}&name=${item}`);
+        mutate(0,true);
     };
 
-    const handleEdit = async (itemId, newPrice) => {
-        await axios.put(`/api/editPrice/${menuobj._id}/${itemId}`, {
+    const handleEdit = async (newPrice, item) => {
+        await axios.post(`/api/addFoodItem/${props.email}?name=${props.restaurant}`, {
+            name: item,
             price: newPrice,
         });
-        mutate();
+        mutate(0,true);
     };
-
+    const handleEdit1 = async (newPrice) => {
+        t=newPrice
+    };
     if (error) return <div>Error: {error.message}</div>;
     if (!menuobj) return <div>Loading...</div>;
-
-    return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Food Item:
-                    <input
-                        type="text"
-                        value={newFoodItem}
-                        onChange={(e) => setNewFoodItem(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Price:
-                    <input
-                        type="text"
-                        value={newPrice}
-                        onChange={(e) => setNewPrice(e.target.value)}
-                    />
-                </label>
-                <button type="submit">Add Item</button>
-            </form>
-
-            <h1>{menuobj.name}</h1>
-            <ul>
-                {menuobj.menu.map((item, i) => (
-                    <li key={i}>
-                        {item.name}
+    if (menuobj) {
+        return (
+            <>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Food Item:
                         <input
                             type="text"
-                            defaultValue={item.price}
-                            onChange={(e) => handleEdit(item._id, e.target.value)}
+                            value={newFoodItem}
+                            onChange={(e) => setNewFoodItem(e.target.value)}
                         />
-                        <button onClick={() => handleDelete(item._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </>
-    );
+                    </label>
+                    <label>
+                        Price:
+                        <input
+                            type="text"
+                            value={newPrice}
+                            onChange={(e) => setNewPrice(e.target.value)}
+                        />
+                    </label>
+                    <button type="submit">Add Item</button>
+                </form>
+
+                <h1>{menuobj.name}</h1>
+                <ul>
+                    {menuobj.menu.map((item, i) => (
+                        <li key={i}>
+                            {item.name}
+                            <input
+                                type="text"
+                                defaultValue={item.price}
+                                onChange={(e) => handleEdit1(e.target.value)}
+                            />
+                            <button onClick={() => handleEdit(t,item.name)}>Edit</button>
+                            <button onClick={() => handleDelete(item.name)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </>
+        );
+    }
 }

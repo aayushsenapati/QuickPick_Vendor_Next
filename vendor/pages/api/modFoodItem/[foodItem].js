@@ -9,13 +9,13 @@ export default async (req, res) => {
         const collection = db.collection('menu');
         //console.log(req.body.name)
         const query = { "email": req.query.foodItem, "restaurants.name": req.query.name };
-        const update = { $set: { "restaurants.$.menu.$[elem].price": req.body.price } };
-        const options = { arrayFilters: [{ "elem.name": "masala dosa" }] };
+        const update = { $push: { "restaurants.$.menu":{"name":req.body.name,"price":req.body.price} } };
+        //const options = { arrayFilters: [{ "elem.name": "masala dosa" }] };
 
 
         // Update the document in the database
-        const result = await collection.updateOne(query, update, options)
-        //console.log(result)
+        const result = await collection.updateOne(query, update)
+        console.log(result)
         res.json(result);
     }
 
