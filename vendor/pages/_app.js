@@ -1,8 +1,9 @@
 import '@/styles/globals.css'
 import React from 'react';
-import { UserProvider, useUser } from '@auth0/nextjs-auth0/client';
+import { UserProvider} from '@auth0/nextjs-auth0/client';
 import Layout from '/components/layout'
 import { useRouter } from 'next/router';
+import Sidebar from '../components/Sidebar'
 
 
 export default function App({ Component, pageProps }) {
@@ -19,9 +20,11 @@ export default function App({ Component, pageProps }) {
 
   return (
     <UserProvider>
-      <Layout>
+      
+        <Sidebar/>
         <Component {...pageProps} />
-      </Layout>
+        
+      
     </UserProvider>
   );
 }

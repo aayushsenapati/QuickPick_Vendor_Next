@@ -2,19 +2,20 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const LoginButton = () => {
-
+    console.log('in loginx`')
     const handleLogin = async () => {
-        window.location.href='/api/auth/login'
+        window.location.href = '/api/auth/login'
+
     }
 
     return (
-            <button
-                className="bg-blue text-white font-bold py-2 px-4 rounded-full focus:outline-none hover:bg-blue-dark hover:text-white"
-                onClick={handleLogin}
-            >
+        <>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogin}>
                 login
             </button>
-        
+
+        </>
+
     );
 };
 
