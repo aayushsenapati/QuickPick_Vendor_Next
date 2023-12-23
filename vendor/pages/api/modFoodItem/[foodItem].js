@@ -7,9 +7,9 @@ export default async (req, res) => {
         const client = await clientPromise; //query string will look like /api/getClientRes/clientemail
         const db = client.db('foodOrders')
         const collection = db.collection('menu');
-        //console.log(req.body.name)
+        console.log(typeof(req.body.price))
         const query = { "email": req.query.foodItem, "restaurants.name": req.query.name };
-        const update = { $push: { "restaurants.$.menu":{"name":req.body.name,"price":req.body.price} } };
+        const update = { $push: { "restaurants.$.menu":{"name":req.body.name,"price":Number(req.body.price)} } };
         //const options = { arrayFilters: [{ "elem.name": "masala dosa" }] };
 
 

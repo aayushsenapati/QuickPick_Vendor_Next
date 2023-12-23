@@ -115,7 +115,7 @@ export default function EditMenu(props) {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <input
-                                                        type="text"
+                                                        type="number"
                                                         defaultValue={item.price}
                                                         onChange={(e) => handleEdit1(e.target.value)}
                                                         className="shadow appearance-none border rounded w-32 py-2 px-3 text-xs text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
