@@ -18,16 +18,30 @@ export default function Menu(){
   if(user){
     return(
         <div className="flex flex-col items-center justify-center min-h-screen">
-          <button onClick={() => setModalIsOpen(true)} className="bg-blue-500 text-white p-2 rounded-md">Add Restaurant</button>
+          
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={() => setModalIsOpen(false)}
             contentLabel="Add Restaurant Modal"
-            className="flex items-center justify-center outline-none"
+            style={{
+              overlay: {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+              content: {
+                position: 'relative',
+                top: 'auto',
+                left: 'auto',
+                right: 'auto',
+                bottom: 'auto',
+              },
+            }}
           >
             <AddRest/>
           </Modal>
           <EditMenu user={user}/>
+          <button onClick={() => setModalIsOpen(true)} className="bg-blue-500 text-white p-2 rounded-md mt-4">Add Restaurant</button>
         </div>
     )
   } else {
