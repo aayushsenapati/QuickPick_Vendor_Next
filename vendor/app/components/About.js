@@ -22,24 +22,12 @@ const router = useRouter();
             
             <button
                 onClick={() => router.push('signup')} 
-                className="bg-white-100 hover:bg-yellow-700 text-black font-bold py-2 px-8 rounded-full border border-black"
+                className="bg-white-100 hover:bg-gray-200 text-black font-bold py-2 px-8 rounded-full border border-black"
             >
                 Sign up
             </button>
         </div>
       </div>
-        {/* <button
-            onClick={() => router.push('signin')} 
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-            Sign in
-        </button>
-        <button
-            onClick={() => router.push('signup')} 
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-            Sign up
-        </button> */}
     </div>
   )
 }
