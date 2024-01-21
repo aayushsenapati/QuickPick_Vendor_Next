@@ -1,18 +1,28 @@
 'use client';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signin');
-    },
-  });
+ 
+  const router = useRouter();
   return (
-    <div className="p-8">
-      <div className='text-white'>{session?.data?.user?.email }</div>
-      <button className='text-white' onClick={() => signOut()}>Logout</button>
+    
+    <div>
+            <h1>QuickPick</h1>
+            <button
+                onClick={() => router.push('signin')} 
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Sign in
+            </button>
+            <button
+                onClick={() => router.push('signup')} 
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Sign up
+            </button>
+            
     </div>
   )
 }
