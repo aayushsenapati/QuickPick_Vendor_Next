@@ -2,6 +2,9 @@
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import Navbar from './components/Navbar';
+import About from './components/About';
+import Bgimage from './components/Bgimage';
 
 export default function Home() {
  
@@ -9,7 +12,10 @@ export default function Home() {
   return (
     
     <div>
-            <h1>QuickPick</h1>
+            <Navbar/>
+            <About/>
+            <Bgimage/>
+            {/* <h1>QuickPick</h1>
             <button
                 onClick={() => router.push('signin')} 
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -21,7 +27,7 @@ export default function Home() {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
                 Sign up
-            </button>
+            </button> */}
             
     </div>
   )
