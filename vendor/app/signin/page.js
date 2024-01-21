@@ -14,7 +14,7 @@ export default function Signin() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto"
-            src="/logo_black.png"
+            src="/new_qp.PNG"
             alt="Your Company"
             width={100}
             height={100}
@@ -72,7 +72,7 @@ export default function Signin() {
               <button
                 onClick={() => signIn('credentials', {email, password, redirect: true, callbackUrl: '/restaurant'})}
                 disabled={!email || !password}
-                className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-500"
+                className="flex w-full justify-center rounded-md bg-yellow-400 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-500"
               >
                 Sign in
               </button>
@@ -81,7 +81,7 @@ export default function Signin() {
 
           <p className="mt-4 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <button onClick={() => router.push('signup')} className="font-semibold leading-6 text-yellow-600 hover:text-black-300">
+            <button onClick={() => router.push('signup')} className="font-semibold leading-6 text-yellow-500 hover:text-black-300">
               Sign Up
             </button>
           </p>

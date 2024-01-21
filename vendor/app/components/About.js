@@ -15,7 +15,7 @@ const router = useRouter();
         <div className="flex mt-4 items-center justify-center pl-8 pr-8 pb-8 pt-4">
             <button
                 onClick={() => router.push('signin')} 
-                className="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-2 px-8 rounded-full mr-4"
+                className="bg-yellow-400 hover:bg-yellow-700 text-black font-bold py-2 px-8 rounded-full mr-4"
             >
                 Sign in
             </button>
