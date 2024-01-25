@@ -8,7 +8,7 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -16,7 +16,7 @@
   }
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,10 +24,32 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+html, body {
+  height: 100 vh;
 }
+
+body {
+  color: rgb(var(--foreground-rgb));
+  margin: 0; 
+  background: #FFFFFF;
+  background-attachment: fixed;
+}  
+
+
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+/* global.css */
+.carousel-container {
+  width: 80%;
+  margin: auto;
+}
+
+
+

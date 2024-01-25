@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Navbar from './components/Navbar';
 import Info from './components/Info';
+import Carousel from './components/Carousel';
 
 
 export default function Home() {
@@ -13,7 +14,8 @@ export default function Home() {
     
     <div>
             <Navbar/>
-            <Info/>       
+            <Info/>
+            <Carousel/>       
     </div>
   )
 }

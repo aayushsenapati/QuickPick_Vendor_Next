@@ -14,7 +14,7 @@ export default function Signin() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto"
-            src="/new_qp.PNG"
+            src="/quickpick_circle_logo_black_black_solid.png"
             alt="Your Company"
             width={100}
             height={100}

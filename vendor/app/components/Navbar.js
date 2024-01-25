@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className='flexBetween max-container padding-container relative z-30 py-5 flex'>
       <div onClick={() => router.push('/')}>
-        <Image src='/qp_logo_nobg.png' alt="logo" width={110} height={100} className='ml-10'/>
+        <Image src='/quickpick_horizontal_logo_black.png' alt="logo" width={130} height={90} className='ml-10'/>
       </div>
       <ul className='hidden h-full gap-12 lg:flex ml-auto mr-10'>
         {NAV_LINKS.map((link) => (
