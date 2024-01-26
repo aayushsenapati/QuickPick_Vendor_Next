@@ -35,6 +35,7 @@ export default function Restaurant() {
         try {
           const response = await fetch(`/api/menu?restaurantName=${restaurantName}&email=${session.data.user.email}`);
           const data = await response.json();
+          console.log(data)
           setMenuItems(data.itemsWithPricing);
         } catch (error) {
           console.error(error);
@@ -45,20 +46,12 @@ export default function Restaurant() {
     const handleRestaurantChange = async (event) => {
         setSelectedRestaurant(event.target.value);
         fetchMenu(event.target.value); 
-      
-        // try {
-        //   const response = await fetch(`/api/menu?restaurantName=${event.target.value}&email=${session.data.user.email}`);
-        //   const data = await response.json();
-        //   setMenuItems(data.itemsWithPricing);
-        // } catch (error) {
-        //   console.error(error);
-        // }
       };
 
     useEffect(() => {
         if (session && session.data && session.data.user) {
             fetchRestaurants();
-            fetchMenu(selectedRestaurant);
+
         }
     }, [session,selectedRestaurant]);
 

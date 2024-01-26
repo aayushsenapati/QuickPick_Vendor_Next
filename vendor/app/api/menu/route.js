@@ -13,23 +13,33 @@ export async function GET(request) {
     // 1. Retrieve vendor document by email
     const vendorDocRef = query(collection(db, "vendor"), where("email", "==", email), limit(1));
     const vendorDocSnapshot = await getDocs(vendorDocRef);
-    vendorDocSnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
+    // vendorDocSnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    // });
 
     if (!vendorDocSnapshot.empty) {
       const vendorData = vendorDocSnapshot.docs[0].data();
 
-      const restaurantRef = vendorData.restaurants.find(async (ref) => {
-        const resref = await getDoc(ref)
-        const restaurantNameFromRef = resref.data().name;
-        if (restaurantNameFromRef === restaurantName)
-        {
-          return ref;
-        }
+      // const restaurantRef = vendorData.restaurants.find(async (ref) => {
+      //   const resref = await getDoc(ref)
+      //   const restaurantNameFromRef = resref.data().name;
+      //   console.log(restaurantNameFromRef)
+      //   if (restaurantNameFromRef === restaurantName)
+      //   {
+      //     return ref;
+      //   }
 
-      });
+      // });
+      const restaurantRefs = await Promise.all(vendorData.restaurants.map(async (ref) => {
+        const resref = await getDoc(ref);
+        const restaurantNameFromRef = resref.data().name;
+        // console.log(restaurantNameFromRef)
+        return { ref, restaurantNameFromRef };
+      }));
+      // console.log(restaurantRefs)
+      const matchingRef = restaurantRefs.find((refData) => refData.restaurantNameFromRef === restaurantName);
+      const restaurantRef = matchingRef?.ref;
 
       // console.log(restaurantRef)
 
