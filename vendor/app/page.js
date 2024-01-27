@@ -15,7 +15,8 @@ export default function Home() {
     <div>
             <Navbar/>
             <Info/>
-            <Carousel/>       
+            <Carousel/>
+               
     </div>
   )
 }
