@@ -1,6 +1,7 @@
 import "./globals.css";
 import SessionProvider from "./SessionProvider";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 
 export const metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="h-full bg-white">
       <body className="h-full">
         <SessionProvider>{children}</SessionProvider>
+        <ToastContainer />
       </body>
     </html>
   );
