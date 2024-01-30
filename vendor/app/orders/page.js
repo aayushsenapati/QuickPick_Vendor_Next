@@ -9,7 +9,7 @@ export default function Restaurant() {
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [orderItems, setOrderItems] = useState([]);
   const [newStatus, setnewStatus] = useState('');
-  const [orderId, setorderId]=useState('');
+  // const [orderId, setorderId]=useState('');
 
 
   const session = useSession({
@@ -56,49 +56,72 @@ export default function Restaurant() {
 
 
 
-  const handleUpdateStatus = async () => {
-    try {
-      const response = await fetch('/api/orders', {
-        method: 'PATCH',
-        body: JSON.stringify({
-          id: orderId,
-          newStatus: newStatus
-        })
+  
 
-      })
-
-      if(response.ok) {
-          console.log('Order status updated successfully');
-      // Optionally, you can refresh the order list or update the specific order in the state
-      fetchOrder(selectedRestaurant);
-    } else {
-      console.error('Failed to update order status');
-      // Handle error, maybe show an error message to the user
-    }
-  } catch (error) {
-    console.error('Error during status update request', error);
-    // Handle unexpected errors
-  }
-};
-
-const handleDoneButtonClick = (orderId, currentStatus) => {
+const handleDoneButtonClick = async(orderId, currentStatus) => {
 
   // Determine the new status based on the current status
-  switch (currentStatus) {
-    case 'In-Progress':
-      setnewStatus('Ready');
-      break;
-    case 'Ready':
-      setnewStatus('Completed');
-      break;
-    default:
-      // Do nothing for other status values
-      return;
-  }
-  setorderId(orderId);
-  // Update the status using the existing handleUpdateStatus function
-  handleUpdateStatus();
+  // switch (currentStatus) {
+  //   case 'In-Progress':
+  //     setnewStatus('Ready');
+  //     console.log("afterchanging: ",newStatus)
+  //     break;
+  //   case 'Ready':
+  //     setnewStatus('Completed');
+  //     console.log("afterchanging: ",newStatus)
+  //     break;
+  //   default:
+  //     // Do nothing for other status values
+  //     return;
+  // }
 
+  if(currentStatus=='In-Progress')
+  {
+    setnewStatus('Ready');
+    console.log("afterchanging: ",newStatus)
+  }
+  else if(currentStatus=='Ready'){
+    setnewStatus('Completed');
+      console.log("afterchanging: ",newStatus)
+
+  }
+  else
+  {
+  }
+  // setorderId(orderId);
+  // console.log("orderidtakenn:",orderId)
+  // Update the status using the existing handleUpdateStatus function
+//   handleUpdateStatus();
+
+// };
+
+// const handleUpdateStatus = async () => {
+//   // event.preventDefault();
+//   console.log("orderid:",orderId)
+//   console.log("newstatus:",newStatus)
+  try {
+    
+    const response = await fetch('/api/orders', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        id: orderId,
+        newStatus: newStatus,
+      }),
+
+    });
+
+    if(response.ok) {
+        console.log('Order status updated successfully');
+    // Optionally, you can refresh the order list or update the specific order in the state
+    fetchOrder(selectedRestaurant);
+  } else {
+    console.error('Failed to update order status');
+    // Handle error, maybe show an error message to the user
+  }
+} catch (error) {
+  console.error('Error during status update request', error);
+  // Handle unexpected errors
+}
 };
 
 

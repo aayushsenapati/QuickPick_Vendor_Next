@@ -1,6 +1,6 @@
 import { db } from '@/app/firebase/config';
 import { NextResponse } from 'next/server';
-import { collection, getDocs, where, query, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, where, query, updateDoc, limit } from 'firebase/firestore';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -19,7 +19,7 @@ export async function GET(request) {
       // 2. Map the order data from the documents
       const orderData = querySnapshot.docs.map((item) => item.data());
 
-      console.log(orderData);
+      // console.log(orderData);
 
       return NextResponse.json({ orderData }, { status: 200 });
     } else {
