@@ -13,6 +13,7 @@ export async function GET(request) {
       where('restaurant_id', '==', restaurant),
       where('status', '!=', 'Collected'), //handle in server
     );
+
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {

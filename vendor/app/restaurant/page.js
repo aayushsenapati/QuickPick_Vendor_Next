@@ -7,6 +7,7 @@ import AddMenuDialog from '../components/AddMenu';
 import EditRestaurantDialog from '../components/EditRestaurant';
 import DeleteRestaurantDialog from '../components/DeleteRestaurant';
 import EditMenuItem from '../components/EditMenuItem';
+import BaseLayout from '../components/Baselayout';
 
 
 export default function Restaurant() {
@@ -76,6 +77,7 @@ export default function Restaurant() {
 
 
     return (
+        <BaseLayout>
         <div className="container mx-auto">
 
             {/* Column 1: Restaurant Selection */}
@@ -182,6 +184,7 @@ export default function Restaurant() {
                 </div>
             </div>
         </div>
+        </BaseLayout>
     );
 }
 

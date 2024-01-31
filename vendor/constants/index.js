@@ -28,7 +28,7 @@ export const sidebarItems = [
       icon: BsClipboard2Minus,
     },
     {
-      href:'/edit_restaurant',
+      href:'/restaurant',
       name:'Edit Restaurant Items',
       icon: IoRestaurantOutline,
     }

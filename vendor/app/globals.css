@@ -144,3 +144,36 @@ body {
   display: none;
 } 
 
+.order-items {
+  margin-top: 16px;
+}
+
+/* Style for the order boxes */
+.order-box {
+  border: 2px solid #ccc; /* Default border color */
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* Specific styles based on order status */
+.red-border {
+  border-color: red;
+}
+
+.green-border {
+  border-color: green;
+}
+
+/* Style for the "Done" button */
+.doneButton {
+  background-color: #cfd6d6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Add hover effect to the "Done" button */
+.doneButton:hover {
+  background-color: #989a9b;
+}
