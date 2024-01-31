@@ -8,7 +8,7 @@ export default function Restaurant() {
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [orderItems, setOrderItems] = useState([]);
-  const [newStatus, setnewStatus] = useState('');
+  // const [newStatus, setnewStatus] = useState('');
 
 
   const session = useSession({
@@ -56,12 +56,17 @@ export default function Restaurant() {
 
   const handleDoneButtonClick = async (orderId, currentStatus) => {
 
+    let newStatus=''
+    // setnewStatus(currentStatus)
+    // console.log("beforechanging: ", newStatus)
     if (currentStatus == 'In-Progress') {
-      setnewStatus('Ready');
+      // setnewStatus('Ready');
+      newStatus='Ready'
       console.log("afterchanging: ", newStatus)
     }
     else if (currentStatus == 'Ready') {
-      setnewStatus('Collected');
+      // setnewStatus('Collected');
+      newStatus='Collected'
       console.log("afterchanging: ", newStatus)
 
     }
