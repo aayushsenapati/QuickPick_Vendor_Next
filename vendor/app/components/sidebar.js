@@ -20,10 +20,6 @@ const Sidebar = () => {
             <div style={{ marginBottom: '4px' }}>
               <p className='sidebar__logo-name'>QuickPick</p>
             </div>
-            {/* API CALL to fetch restaurant name i.e Hello Cantina ! */}
-            <div>
-              <p className='sidebar__restaurant-name'>Hello Restaurant!</p>
-            </div>
           </div>
         </div>
         <ul className='sidebar__list'>

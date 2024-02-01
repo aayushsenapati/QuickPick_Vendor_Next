@@ -56,17 +56,17 @@ export default function Restaurant() {
 
   const handleDoneButtonClick = async (orderId, currentStatus) => {
 
-    let newStatus=''
+    let newStatus = ''
     // setnewStatus(currentStatus)
     // console.log("beforechanging: ", newStatus)
     if (currentStatus == 'In-Progress') {
       // setnewStatus('Ready');
-      newStatus='Ready'
+      newStatus = 'Ready'
       console.log("afterchanging: ", newStatus)
     }
     else if (currentStatus == 'Ready') {
       // setnewStatus('Collected');
-      newStatus='Collected'
+      newStatus = 'Collected'
       console.log("afterchanging: ", newStatus)
 
     }
@@ -122,48 +122,76 @@ export default function Restaurant() {
 
   return (
     <BaseLayout>
-      <div className='content'>
-        <div className="p-8">
-          <div className="text-black">{session?.data?.user?.email}</div>
-          <button className="text-black" onClick={() => signOut()}>
-            Logout
-          </button>
-          <select value={selectedRestaurant} onChange={handleRestaurantChange}>
-            <option value="">Select a restaurant</option>
-            {restaurants.map((restaurant) => (
-              <option key={restaurant} value={restaurant}>
-                {restaurant}
-              </option>
-            ))}
-          </select>
-          {selectedRestaurant && (
-            <div className="order-items">
-              <h2>Orders for {selectedRestaurant}</h2>
+      <div className="">
+        <div className="flex justify-between items-center py-4 text-black">
+          <h2 className="text-xl font-bold pl-16">Orders</h2>
+          <div className="absolute top-0 right-0 flex items-center pr-8">
+            <div className="text-xl font-semibold pr-4">{session?.data?.user?.email}</div>
+            <button className="justify-center items-center bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4  rounded" onClick={() => signOut()}>
+              Logout
+            </button>
+          </div>
+        </div>
+        <div className='px-10'>
+          <div className='restaurant-select'>
+            <select value={selectedRestaurant} onChange={handleRestaurantChange} className="w-full p-4 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500">
+              <option disabled value=""> Select a restaurant </option>
+              {restaurants.map((restaurant) => (
+                <option key={restaurant} value={restaurant}>
+                  {restaurant}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        {selectedRestaurant && (
+          <div className="order-container">
+            <div className="px-10 py-10 ">
+              {/* <h2 className='text-xl font-semibold pr-4 py-5 px-8'> Orders for {selectedRestaurant}</h2> */}
               {orderItems.map((order, orderIndex) => (
                 <div key={orderIndex} className={`order-box ${getStatusColor(order.status)}`}>
-                  <h3>Order #{orderIndex + 1}</h3>
-                  <p>Status: {order.status}</p>
+                  <h3 className='text-black font-semibold'>Order #{orderIndex + 1}</h3>
+                  <p className='py-1'>Status: {order.status}</p>
                   <ul>
+                    <li className="flex justify-between border-b-2 border-gray-200 py-2">
+                      <div className="flex flex-col">
+                        <span className="font-semibold">Item</span>
+                      </div>
+                      <div className="flex flex-col text-right">
+                        <span className="font-semibold">Qty</span>
+                      </div>
+                      <div className="flex flex-col text-right">
+                        <span className="font-semibold">Price</span>
+                      </div>
+                    </li>
                     {order.items.map((item, itemIndex) => (
-                      <li key={itemIndex}>
-                        Item: {item.name}
-                        Price: {item.price}
-                        Quantity: {item.quantity}
+                      <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
+                        <div className="flex flex-col">
+                          <span>{item.name}</span>
+                        </div>
+                        <div className="flex flex-col text-right">
+                          <span>{item.quantity}</span>
+                        </div>
+                        <div className="flex flex-col text-right">
+                          <span>{item.price}</span>
+                        </div>
                       </li>
                     ))}
                   </ul>
-                  <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
-                    Done
-                  </button>
+                  <div className='py-3'>
+                    <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
+                      Done
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
-          )}
+          </div>
+        )}
 
 
-        </div>
       </div>
-    </BaseLayout>
+    </BaseLayout >
   );
 }
 

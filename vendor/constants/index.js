@@ -12,16 +12,16 @@ export const NAV_LINKS = [
   ];
 
 export const sidebarItems = [
-    { 
-      href: '/',
-      name: 'Home',
-      icon: AiOutlineHome,
-    },
-    {
-       href: '/about',
-       name: 'About',
-       icon: BsPeople ,
-    },
+    // { 
+    //   href: '/',
+    //   name: 'Home',
+    //   icon: AiOutlineHome,
+    // },
+    // {
+    //    href: '/about',
+    //    name: 'About',
+    //    icon: BsPeople ,
+    // },
     {
       href:'/orders',
       name:'Orders',
