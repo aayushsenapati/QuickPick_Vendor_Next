@@ -127,7 +127,7 @@ export default function Restaurant() {
           <h2 className="text-xl font-bold pl-16">Orders</h2>
           <div className="absolute top-0 right-0 flex items-center pr-8">
             <div className="text-xl font-semibold pr-4">{session?.data?.user?.email}</div>
-            <button className="justify-center items-center bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4  rounded" onClick={() => signOut()}>
+            <button className="justify-center items-center bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded" onClick={() => signOut()}>
               Logout
             </button>
           </div>
@@ -146,52 +146,96 @@ export default function Restaurant() {
         </div>
         {selectedRestaurant && (
           <div className="order-container">
-            <div className="px-10 py-10 ">
-              {/* <h2 className='text-xl font-semibold pr-4 py-5 px-8'> Orders for {selectedRestaurant}</h2> */}
-              {orderItems.map((order, orderIndex) => (
-                <div key={orderIndex} className={`order-box ${getStatusColor(order.status)}`}>
-                  <h3 className='text-black font-semibold'>Order #{orderIndex + 1}</h3>
-                  <p className='py-1'>Status: {order.status}</p>
-                  <ul>
-                    <li className="flex justify-between border-b-2 border-gray-200 py-2">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Item</span>
-                      </div>
-                      <div className="flex flex-col text-right">
-                        <span className="font-semibold">Qty</span>
-                      </div>
-                      <div className="flex flex-col text-right">
-                        <span className="font-semibold">Price</span>
-                      </div>
-                    </li>
-                    {order.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
-                        <div className="flex flex-col">
-                          <span>{item.name}</span>
-                        </div>
-                        <div className="flex flex-col text-right">
-                          <span>{item.quantity}</span>
-                        </div>
-                        <div className="flex flex-col text-right">
-                          <span>{item.price}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className='py-3'>
-                    <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
-                      Done
-                    </button>
-                  </div>
+            <div className="px-10 py-10 flex">
+              <div className="in-progress-orders px-10 py-10 overflow-y-auto">
+                <h2 className='text-xl font-semibold pr-4 py-5 px-8'>In-Progress Orders</h2>
+                {orderItems
+                  .filter((order) => order.status === 'In-Progress')
+                  .map((order) => (
+                    <div key={order.id} className={`order-box ${getStatusColor(order.status)}`}>
+                      <h3 className='text-black font-semibold'>Order #{order.id}</h3>
+                      <p className='py-1'>Status: {order.status}</p>
+                      <ul>
+            <li className="flex justify-between border-b-2 border-gray-200 py-2">
+                <div className="flex flex-col">
+                    <span className="font-semibold">Item</span>
                 </div>
-              ))}
+                <div className="flex flex-col text-right">
+                    <span className="font-semibold">Qty</span>
+                </div>
+                <div className="flex flex-col text-right">
+                    <span className="font-semibold">Price</span>
+                </div>
+            </li>
+            {order.items.map((item, itemIndex) => (
+                <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
+                    <div className="flex flex-col">
+                        <span>{item.name}</span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                        <span>{item.quantity}</span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                        <span>{item.price}</span>
+                    </div>
+                </li>
+            ))}
+        </ul>
+                      <div className='py-3'>
+                        <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
+                          Done
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <div className="ready-orders px-10 py-10 overflow-y-auto">
+                <h2 className='text-xl font-semibold pr-4 py-5 px-8'>Ready Orders</h2>
+                {orderItems
+                  .filter((order) => order.status === 'Ready')
+                  .map((order) => (
+                    <div key={order.id} className={`order-box ${getStatusColor(order.status)}`}>
+                      <h3 className='text-black font-semibold'>Order #{order.id}</h3>
+                      <p className='py-1'>Status: {order.status}</p>
+                      <ul>
+            <li className="flex justify-between border-b-2 border-gray-200 py-2">
+                <div className="flex flex-col">
+                    <span className="font-semibold">Item</span>
+                </div>
+                <div className="flex flex-col text-right">
+                    <span className="font-semibold">Qty</span>
+                </div>
+                <div className="flex flex-col text-right">
+                    <span className="font-semibold">Price</span>
+                </div>
+            </li>
+            {order.items.map((item, itemIndex) => (
+                <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
+                    <div className="flex flex-col">
+                        <span>{item.name}</span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                        <span>{item.quantity}</span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                        <span>{item.price}</span>
+                    </div>
+                </li>
+            ))}
+        </ul>
+                      <div className='py-3'>
+                        <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
+                          Done
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         )}
-
-
       </div>
-    </BaseLayout >
+    </BaseLayout>
   );
+  
 }
-
