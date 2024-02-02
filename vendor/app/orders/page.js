@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import BaseLayout from '../components/Baselayout';
+import BaseLayout from '../components/BaseLayout';
 
 export default function Restaurant() {
   const [restaurants, setRestaurants] = useState([]);

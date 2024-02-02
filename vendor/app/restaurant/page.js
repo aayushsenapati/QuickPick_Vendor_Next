@@ -7,7 +7,7 @@ import AddMenuDialog from '../components/AddMenu';
 import EditRestaurantDialog from '../components/EditRestaurant';
 import DeleteRestaurantDialog from '../components/DeleteRestaurant';
 import EditMenuItem from '../components/EditMenuItem';
-import BaseLayout from '../components/Baselayout';
+import BaseLayout from '../components/BaseLayout';
 
 
 export default function Restaurant() {
