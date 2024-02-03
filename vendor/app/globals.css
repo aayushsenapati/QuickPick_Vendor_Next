@@ -49,6 +49,7 @@ body {
 /* global.css */
 .carousel-container {
   width: 72%;
+  padding-top: 8vh;
   margin: auto;
 }
 
