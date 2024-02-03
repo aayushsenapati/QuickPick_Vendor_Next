@@ -70,7 +70,7 @@ export default function Signin() {
 
             <div>
               <button
-                onClick={() => signIn('credentials', {email, password, redirect: true, callbackUrl: '/restaurant'})}
+                onClick={() => signIn('credentials', {email, password, redirect: true, callbackUrl: '/orders'})}
                 disabled={!email || !password}
                 className="flex w-full justify-center rounded-md bg-yellow-400 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-500"
               >

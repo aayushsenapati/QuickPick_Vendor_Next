@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import { BsClipboard2Minus } from "react-icons/bs";
 import { IoRestaurantOutline } from "react-icons/io5";
-import { TbLayoutSidebarLeftCollapse } from "react-icons/tb";
+import { IoIosArrowBack } from "react-icons/io";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 
@@ -40,7 +40,7 @@ const Sidebar = () => {
       );
       
   const wrapperClasses = classNames(
-    "px-4 pt-8 pb-7 w-1/5 bg-primary bg-yellow-300 text-black flex justify-between flex-col  inline-block h-screen",
+    "px-4 pt-8 pb-7 w-1/5 bg-primary bg-black text-white flex justify-between flex-col  inline-block h-screen",
     {
       ["w-1/5"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
@@ -92,10 +92,10 @@ const Sidebar = () => {
     >
     <div className="">
     
-        <div className="flex item-center pl-1 gap-4">
+        <div className="flex item-center pl-1">
         <Image src="/quickpick_bell_icon_black_solid.png" width={80} height={80} className="sidebar__logo" alt="logo" />
         <span
-        className={classNames("mt-2 text-2xl font-medium text-black", {
+        className={classNames("mt-6 text-2xl font-medium text-white", {
         hidden: toggleCollapse,
         })}>
           QuickPick
@@ -109,11 +109,12 @@ const Sidebar = () => {
           return(
                 <div className = {classes} key = {menu.id}> 
                   <Link href={menu.link} className="py-4 px-6 items-center w-full h-full">  <div className="flex">
-                <div style = {{width : "2.5rem"}}>
+                {/* <div style = {{width : "2.5rem"}}> */}
+                <div className='pt-2 mr-4'>
                   <Icon/>
                 </div>
                 <div className="flex flex-col "><div className="flex items-center " >
-                <span className = {classNames("" ,
+                <span className = {classNames("text-lg" ,
                 {
                 hidden : toggleCollapse
                 })}>
@@ -136,7 +137,7 @@ const Sidebar = () => {
                 setToggleCollapse(!toggleCollapse)
             }}>
             
-          <TbLayoutSidebarLeftCollapse />
+            <IoIosArrowBack />
         </button>
         )}
       </div>
