@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const Contactus = () => {
@@ -15,7 +16,13 @@ const Contactus = () => {
     return (
         <div id='contact-section' className="text-black p-8 mt-8">
             <div class="flex justify-center items-center">
-                <img src="team.png" alt="team" className="" />
+            <Image
+            src="/team.png"
+            alt="team"
+            width={1000}
+            height={1000}
+            className="mx-auto"
+          />
             </div>
 
             <div className="contact-info mx-auto">
