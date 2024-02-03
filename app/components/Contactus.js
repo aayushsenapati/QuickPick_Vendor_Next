@@ -9,7 +9,7 @@ const Contactus = () => {
         <div id='contact-section' className="text-black p-8 mt-8">
             <div className="flex justify-center items-center">
             <Image
-            src="/team.png"
+            src="/team_rev.png"
             alt="team"
             width={1000}
             height={1000}
