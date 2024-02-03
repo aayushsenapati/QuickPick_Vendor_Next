@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { toast } from "react-toastify";
+import { redirect } from 'next/navigation';
 
 function AddRestaurantDialog() {
     const [isOpen, setIsOpen] = useState(false);
