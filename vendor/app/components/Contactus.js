@@ -2,7 +2,7 @@ import React from 'react';
 
 const Contactus = () => {
     const mail = 'quickpick2623@gmail.com';
-    const instagramId = '_quick._.pick_';
+    const instagramId = 'itsquickpick';
 
     const coFounders = [
         { name: 'Ananya Mahishi', image: 'ananyamahishi.jpg' },
@@ -35,11 +35,11 @@ const Contactus = () => {
                 </div>
                 <div className="contact-info mx-auto">
                     <h4 className="text-2xl text-center font-bold mb-2 pb-4">Contact Us</h4>
-                    <p className="flex items-center justify-center gap-2 text-base hover:text-blue-500">
+                    <p className="flex items-center justify-center gap-2 text-base hover:text-yellow-600">
                         <span className="text-lg font-semibold">Email:</span>
                         <a href={`mailto:${mail}`}>{mail}</a>
                     </p>
-                    <p className="flex items-center justify-center gap-2 text-base hover:text-blue-500">
+                    <p className="flex items-center justify-center gap-2 text-base hover:text-yellow-600">
                         <span className="text-lg font-semibold">Instagram:</span>
                         <a href={`https://www.instagram.com/${instagramId}`}>{instagramId}</a>
                     </p>

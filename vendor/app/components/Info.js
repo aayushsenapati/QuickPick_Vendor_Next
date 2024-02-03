@@ -7,7 +7,7 @@ import Image from 'next/image';
 const Info = () => {
   const router = useRouter();
   return (
-    <div className='flex flex-row h-screen items-center justify-center pt-4 '>
+    <div className='flex flex-row h-screen items-center justify-center pt-2 mb-32'>
       {/* Left side - Text and Buttons */}
       <div className="flex flex-col items-center justify-center ml-8 pl-32">
         <h1 className="text-6xl font-bold text-black-500">QuickPick</h1>
@@ -34,8 +34,8 @@ const Info = () => {
           <Image
             src="/landing.png"
             alt="landing_img"
-            width={1000}
-            height={1000}
+            width={900}
+            height={900}
             className="mx-auto"
           />
           
