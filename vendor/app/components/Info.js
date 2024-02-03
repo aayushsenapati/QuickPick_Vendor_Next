@@ -10,9 +10,9 @@ const Info = () => {
     <div className='flex flex-row h-screen items-center justify-center pt-2 mb-32'>
       {/* Left side - Text and Buttons */}
       <div className="flex flex-col items-center justify-center ml-8 pl-32">
-        <h1 className="text-8xl font-bold text-black-500">QuickPick</h1>
+        <h1 className="text-7xl font-bold text-black-500">QuickPick</h1>
         <h1 className="text-4xl font-semibold text-black-500 pt-4">For the Vendor</h1>
-        <p className="text-2xl text-black-700 mt-4 pb-8">Your food, your pick, super quick</p>
+        <p className="text-2xl text-black-700 text-center mt-4 pb-8">Your food, your pick, super quick</p>
         <div className="flex mt-4 items-center justify-center">
           <button
             onClick={() => router.push('signin')}
