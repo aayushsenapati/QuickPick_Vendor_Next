@@ -12,6 +12,7 @@ const Navbar = ({ onAboutClick, onContactClick }) => {
       <div onClick={() => router.push('/')}>
         <Image src='/quickpick_horizontal_logo_black.png' alt="logo" width={130} height={90} className='ml-10'/>
       </div>
+      <h1 className='pl-4 text-gray-400'>Vendor Interface</h1>
       <ul className='hidden h-full gap-12 lg:flex ml-auto mr-10'>
         {/* {NAV_LINKS.map((link) => (
           <li key={link.key} className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={() => router.push(link.href)}>
