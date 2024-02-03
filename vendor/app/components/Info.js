@@ -32,7 +32,7 @@ const Info = () => {
       <div className="flex items-center justify-end">
         <div className="max-w-full">
           <Image
-            src="/circle_landing_nobg.png"
+            src="/landing.png"
             alt="landing_img"
             width={1000}
             height={1000}
