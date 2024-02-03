@@ -5,17 +5,9 @@ const Contactus = () => {
     const mail = 'quickpick2623@gmail.com';
     const instagramId = 'itsquickpick';
 
-    const coFounders = [
-        { name: 'Ananya Mahishi', image: 'ananyamahishi.jpg' },
-        { name: 'Ananya J', image: 'ananyaj.jpg' },
-        { name: 'Aayush Senapati', image: 'aayushsenapati.jpg' },
-        { name: 'Aayush Nagar', image: 'aayushnagar.jpg' },
-        { name: 'Aadithya Rao', image: 'aadithyarao.jpg' },
-    ];
-
     return (
         <div id='contact-section' className="text-black p-8 mt-8">
-            <div class="flex justify-center items-center">
+            <div className="flex justify-center items-center">
             <Image
             src="/team.png"
             alt="team"
