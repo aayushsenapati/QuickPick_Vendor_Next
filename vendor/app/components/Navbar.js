@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { NAV_LINKS } from '@/constants';
 
-const Navbar = ({ onAboutClick, onContactClick }) => {
+const Navbar = ({onHomeClick, onAboutClick, onContactClick }) => {
   const router = useRouter();
 
   return (
@@ -18,7 +18,7 @@ const Navbar = ({ onAboutClick, onContactClick }) => {
           <li key={link.key} className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={() => router.push(link.href)}>
             {link.label}
           </li> */}
-          <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={() => router.push('/')}>Home</li>
+          <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onHomeClick}>Home</li>
           <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onAboutClick}>About</li>
           <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onContactClick}>Contact Us</li>
         {/* ))} */}

@@ -12,6 +12,12 @@ export default function Home() {
   
  
   const router = useRouter();
+  const scrollToHome = () => {
+    const carouselElement = document.getElementById('home-section');
+    if (carouselElement) {
+      carouselElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
   const scrollToCarousel = () => {
     const carouselElement = document.getElementById('carousel-section');
@@ -29,7 +35,7 @@ export default function Home() {
   return (
     
     <div>
-      <Navbar onAboutClick={scrollToCarousel} onContactClick={scrollToContact}/>
+      <Navbar onHomeClick={scrollToHome} onAboutClick={scrollToCarousel} onContactClick={scrollToContact}/>
       <Info />
       <Carousel />
       <Contactus/>
