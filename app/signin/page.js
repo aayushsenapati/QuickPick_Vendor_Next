@@ -16,8 +16,8 @@ export default function Signin() {
             className="mx-auto"
             src="/quickpick_horizontal_logo_black.png"
             alt="QuickPick"
-            width={100}
-            height={100}
+            width={300}
+            height={300}
             onClick={() => router.push('/')}
           />
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-black">

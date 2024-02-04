@@ -21,8 +21,8 @@ export default function ForgotPassword() {
             className="mx-auto h-20 w-auto"
             src="/quickpick_horizontal_logo_black.png"
             alt="QuickPick"
-            width={1000}
-            height={1000}
+            width={2000}
+            height={2000}
             onClick={() => router.push('/')}
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-black">
