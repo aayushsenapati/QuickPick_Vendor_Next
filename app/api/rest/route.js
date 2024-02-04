@@ -1,6 +1,9 @@
-import { db } from '@/app/firebase/config';
+import { db,storage } from '@/app/firebase/config';
+import { ref, uploadBytes,getDownloadURL } from "firebase/storage";
 import { NextResponse } from 'next/server';
 import { collection, getDocs, getDoc, where, limit, query, setDoc, updateDoc, arrayUnion, doc, addDoc, arrayRemove, deleteDoc } from "firebase/firestore";
+
+
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -32,32 +35,40 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  const body = await request.json()
-  const { restaurantName, upiId, email } = body
-  // console.log(restaurantName, upiId, email)
+  const body = await request.formData();
+  const restaurantName = body.get('restaurantName');
+  const upiId = body.get('upiId');
+  const email = body.get('email');
+  const image = body.get('image');
+  console.log('this is image', !!image,image==="undefined",image==="null");
 
   // Check for existing restaurant name
-  const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))
+  const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1));
   const existingRestaurantSnapshot = await getDocs(r);
   if (existingRestaurantSnapshot.docs.length > 0) {
     return NextResponse.json({ error: "Restaurant name already exists", }, { status: 409 }); // Conflict status code
   }
 
   try {
-    // Create a new restaurant document
-    const restaurantRef = await addDoc(collection(db, "restaurants"), { name: restaurantName, upiId: upiId, menu: [] });
+    let downloadURL =await getDownloadURL(ref(storage, `restaurants/stock.jpg`));
+    if (image!=="null") {
+      const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
+      const snapshot = await uploadBytes(storageRef, image);
+      downloadURL = await getDownloadURL(storageRef);
+      console.log(downloadURL);
+    }
 
     // Get the vendor document
     const q = query(collection(db, "vendor"), where("email", "==", email), limit(1));
     const vendorSnapshot = await getDocs(q);
     const vendorRef = vendorSnapshot.docs[0].ref;
-    // console.log(vendorRef)
+    // Create a new restaurant document
+    const restaurantRef = await addDoc(collection(db, "restaurants"), { name: restaurantName, upiId: upiId, menu: [], image: downloadURL });
 
     // Add the restaurant reference to the vendor's restaurants array
     await updateDoc(vendorRef, { restaurants: arrayUnion(restaurantRef), });
 
     return NextResponse.json({ success: true }, { status: 201 }); // Indicate successful creation
-
   }
   catch (error) {
     console.error(error);
@@ -68,11 +79,12 @@ export async function POST(request) {
 
 export async function PUT(request) {
   const body = await request.json();
-  const { oldRestaurantName, restaurantName, upiId } = body;
+  const { oldRestaurantName, restaurantName, upiId, image } = body;
 
   console.log("old rest:", oldRestaurantName);
   console.log("new rest:", restaurantName);
   console.log("new upi:", upiId);
+
 
   // Check if old restaurant details
   if (oldRestaurantName == restaurantName) {
@@ -111,9 +123,17 @@ export async function PUT(request) {
     }
 
     const restaurantRef = restaurantDoc.docs[0].ref;
+    const restaurantRefData = restaurantDoc.docs[0].data();
+
+    let downloadURL = restaurantRefData.downloadURL;
+    if (image) {
+      const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
+      const snapshot = await uploadBytes(storageRef, image);
+      downloadURL = await getDownloadURL(storageRef);
+    }
 
     // Update the restaurant document
-    await updateDoc(restaurantRef, { name: restaurantName, upiId: upiId, });
+    await updateDoc(restaurantRef, { name: restaurantName, upiId: upiId, image:downloadURL});
 
     return NextResponse.json({ success: true }, { status: 200 }); // Indicate successful update
 
@@ -133,6 +153,15 @@ export async function DELETE(request) {
   try {
     const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))
     const RestaurantSnapshot = await getDocs(r);
+    const RestaurantData = RestaurantSnapshot.docs[0].data();
+    let downloadURL = RestaurantData.downloadURL;
+    if(downloadURL !== "restaurants/stock.jpg"){
+      const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
+      await storageRef.delete();
+    }
+    
+
+
     const RestaurantRef = RestaurantSnapshot.docs[0].ref;
 
     const q = query(collection(db, "vendor"), where("email", "==", email), limit(1));

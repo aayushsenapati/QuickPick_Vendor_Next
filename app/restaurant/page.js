@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import AddRestaurantDialog from '../components/AddRestaurant';
 import AddMenuDialog from '../components/AddMenu';
+import AddRestaurantDialog from '../components/AddRestaurant';
 import EditRestaurantDialog from '../components/EditRestaurant';
 import DeleteRestaurantDialog from '../components/DeleteRestaurant';
 import EditMenuItem from '../components/EditMenuItem';

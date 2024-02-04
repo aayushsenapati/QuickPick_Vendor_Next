@@ -8,13 +8,13 @@ function AddRestaurantDialog() {
     const [isOpen, setIsOpen] = useState(false);
     const [restaurantName, setRestaurantName] = useState('');
     const [upiId, setUpiId] = useState('');
+    const [restaurantImage, setRestaurantImage] = useState(null);
     const session = useSession({
         required: true,
         onUnauthenticated() {
             redirect('/');
         },
     });
-
 
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
@@ -23,13 +23,15 @@ function AddRestaurantDialog() {
         console.log('Restaurant Name:', restaurantName);
         console.log('UPI ID:', upiId);
         try {
+            const formData = new FormData();
+            formData.append('restaurantName', restaurantName);
+            formData.append('upiId', upiId);
+            formData.append('email', session.data.user.email);
+            formData.append('image', restaurantImage);
+
             const response = await fetch('/api/rest', {
                 method: 'POST',
-                body: JSON.stringify({
-                    restaurantName: restaurantName,
-                    upiId: upiId,
-                    email: session.data.user.email,
-                }),
+                body: formData,
             });
             if (response.ok) {
                 const data = await response.json();
@@ -84,8 +86,6 @@ function AddRestaurantDialog() {
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">Add Restaurant</h3>
                                         <div className="mt-2">
                                             <form onSubmit={handleSubmit}>
-                                                {/* <div className="grid grid-cols-2 gap-4">
-                                                    <div className="col-span-1"> */}
                                                 <label htmlFor="restaurantName" className="text-sm font-medium text-gray-700">
                                                     Restaurant Name
                                                     <span className="text-red-500 ml-1">*</span>
@@ -99,8 +99,6 @@ function AddRestaurantDialog() {
                                                     onChange={(e) => setRestaurantName(e.target.value)}
                                                     required
                                                 />
-                                                {/* </div> */}
-                                                {/* <div className="col-span-1"> */}
                                                 <label htmlFor="upiId" className="text-sm font-medium text-gray-700">
                                                     UPI ID
                                                     <span className="text-red-500 ml-1">*</span>
@@ -113,6 +111,19 @@ function AddRestaurantDialog() {
                                                     value={upiId}
                                                     onChange={(e) => setUpiId(e.target.value)}
                                                     required
+                                                />
+                                                <label htmlFor="restaurantImage" className="text-sm font-medium text-gray-700">
+                                                    Restaurant Image
+                                                    <span className="text-red-500 ml-1">*</span>
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    id="restaurantImage"
+                                                    name="restaurantImage"
+                                                    accept=".jpg"
+                                                    className="w-full border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                                    onChange={(e) => setRestaurantImage(e.target.files[0])}
+                                                    
                                                 />
                                                 <div className="mt-5 sm:mt-4 sm:flex sm:justify-end">
                                                     <button
@@ -130,10 +141,6 @@ function AddRestaurantDialog() {
                                                         Cancel
                                                     </button>
                                                 </div>
-
-
-                                                {/* </div>
-                                                </div> */}
                                             </form>
                                         </div>
                                     </div>
