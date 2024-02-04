@@ -19,8 +19,8 @@ export default function ForgotPassword() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
             className="mx-auto h-20 w-auto"
-            src="/quickpick_circle_logo_black_black_solid.png"
-            alt="Your Company"
+            src="/quickpick_horizontal_logo_black.png"
+            alt="QuickPick"
             width={1000}
             height={1000}
             onClick={() => router.push('/')}

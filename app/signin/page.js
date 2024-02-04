@@ -14,8 +14,8 @@ export default function Signin() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto"
-            src="/quickpick_circle_logo_black_black_solid.png"
-            alt="Your Company"
+            src="/quickpick_horizontal_logo_black.png"
+            alt="QuickPick"
             width={100}
             height={100}
             onClick={() => router.push('/')}
