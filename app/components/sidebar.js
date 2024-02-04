@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,6 @@ import { BsClipboard2Minus } from "react-icons/bs";
 import { IoRestaurantOutline } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
 import { useUser } from "@auth0/nextjs-auth0/client";
-
 
 export const menuItems = [
   {
@@ -23,11 +22,9 @@ export const menuItems = [
     icon: IoRestaurantOutline,
     link: '/restaurant',
   }
-
 ];
 
 const Sidebar = () => {
-
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -45,7 +42,6 @@ const Sidebar = () => {
       ["w-1/5"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
     }
-
   );
 
   const getNavItemClasses = (menu) => {
@@ -54,92 +50,70 @@ const Sidebar = () => {
     );
 
     if (activeMenu && activeMenu.id === menu.id) {
-
       // classes += " bg-secondary text-black";
-
     }
     if (menu.id === 2) {
       classes += " max-h-screen overflow-y-auto";
     }
 
-
     return classes;
   };
 
-
-  //removed use of below class as it was glitching sometimes
   const onMouseOver = () => {
     setIsCollapsible(!isCollapsible);
+  };
 
-  };
-  //
-  //not used below function: function is directly called below
-  const handleSidebarToggle = () => {
-    setToggleCollapse(!toggleCollapse);
-  };
   const collapseIconClasses = classNames(
     "p-4 rounded bg-light-lighter absolute right-0 bottom-5",
     {
       "rotate-180": toggleCollapse,
     }
   );
-  //line 83:<span><a href="api/auth/logout" className = {classNames({hidden:toggleCollapse})}>Logout</a></span>
-  return (
-    <div className={wrapperClasses}
-      //onMouseEnter={onMouseOver}
-      //onMouseLeave={onMouseOver}
-      style={{ transition: "width 800ms cubic-bezier(0.4,0,0,1) 0s" }}
-    >
-      <div className="">
 
+  return (
+    <div className={wrapperClasses} style={{ transition: "width 800ms cubic-bezier(0.4,0,0,1) 0s" }}>
+      <div className="">
         <div className="flex item-center pl-1">
           <Image src="/quickpick_bell_icon.png" width={80} height={80} className="sidebar__logo" alt="logo" />
-          <span
-            className={classNames("mt-6 text-2xl font-medium text-white", {
-              hidden: toggleCollapse,
-            })}>
+          <span className={classNames("mt-6 text-2xl font-medium text-white", { hidden: toggleCollapse })}>
             QuickPick
           </span>
         </div>
-
         <div className=" items-start mt-24">
           {menuItems.map(({ icon: Icon, ...menu }) => {
             const classes = getNavItemClasses(menu);
-            //${menu.id === 2 ? 'border border-gray-300' : ''}for button
             return (
               <div className={classes} key={menu.id}>
-                <Link href={menu.link} className="py-4 px-6 items-center w-full h-full">  <div className="flex">
-                  {/* <div style = {{width : "2.5rem"}}> */}
-                  <div className='pt-2 mr-4'>
-                    <Icon />
+                <Link href={menu.link} className="py-4 px-4 items-center w-full h-full">
+                  <div className="flex">
+                    <div className='pt-1 mr-4'>
+                      {/* Increase the icon size by adjusting the width and height */}
+                      <Icon size={24} /> {/* Change the size to your desired value */}
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex items-center">
+                        <span className={classNames("text-xl", { hidden: toggleCollapse })}>
+                          {menu.label}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-col "><div className="flex items-center " >
-                    <span className={classNames("text-lg",
-                      {
-                        hidden: toggleCollapse
-                      })}>
-                      {menu.label}
-                    </span>
-                  </div>
-                  </div ></div>
-
                 </Link>
               </div>
-            )
+            );
           })}
         </div>
-
       </div>
-
       <div className="bg-secondary flex items-center justify-between relative">
-        {isCollapsible && (<button
-          className={collapseIconClasses}
-          onClick={() => {
-            setToggleCollapse(!toggleCollapse)
-          }}>
-
-          <IoIosArrowBack />
-        </button>
+        {isCollapsible && (
+          <button
+            className={collapseIconClasses}
+            onClick={() => {
+              setToggleCollapse(!toggleCollapse);
+            }}
+          >
+            <IoIosArrowBack />
+          </button>
         )}
       </div>
     </div>

@@ -78,13 +78,13 @@ export default function Restaurant() {
 
     return (
         <BaseLayout>
-        <div className="container mx-auto">
+        <div className="container bg-gray-100 min-h-screen">
 
             {/* Column 1: Restaurant Selection */}
             <div className="flex justify-between items-center py-4 text-black">
                 <h2 className="text-2xl font-bold pl-16">Edit Restaurant</h2>
                 <div className="flex items-center pr-8">
-                    <div className="text-xl font-semibold pr-4">{session?.data?.user?.email}</div>
+                    <div className="text-lg font-semibold  text-gray-500 pr-4">{session?.data?.user?.email}</div>
                     <button className="justify-center items-center bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4  rounded" onClick={() => signOut()}>
                         Logout
                     </button>
