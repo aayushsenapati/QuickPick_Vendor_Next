@@ -132,17 +132,25 @@ export default function Restaurant() {
             </button>
           </div>
         </div>
-        <div className='px-10'>
-          <div className='restaurant-select'>
+      </div>
+      <div className='px-10'>
+        <div className='restaurant-select'>
+          {restaurants ? (
             <select value={selectedRestaurant} onChange={handleRestaurantChange} className="w-full p-4 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500">
-              <option disabled value=""> Select a restaurant </option>
+              <option disabled value="">Select a restaurant</option>
               {restaurants.map((restaurant) => (
                 <option key={restaurant} value={restaurant}>
                   {restaurant}
                 </option>
               ))}
             </select>
-          </div>
+          ) : (
+            // ... handle empty restaurants case ...
+            <div className="text-center p-4">
+              <h3 className="text-lg font-medium">No restaurants available.</h3>
+              {/* <p className="mt-2 text-gray-600">Please try again later or contact support.</p> */}
+            </div>
+          )}
         </div>
         {selectedRestaurant && (
           <div className="order-container">
@@ -156,31 +164,31 @@ export default function Restaurant() {
                       <h3 className='text-black font-semibold'>Order #{order.id}</h3>
                       <p className='py-1'>Status: {order.status}</p>
                       <ul>
-            <li className="flex justify-between border-b-2 border-gray-200 py-2">
-                <div className="flex flex-col">
-                    <span className="font-semibold">Item</span>
-                </div>
-                <div className="flex flex-col text-right">
-                    <span className="font-semibold">Qty</span>
-                </div>
-                <div className="flex flex-col text-right">
-                    <span className="font-semibold">Price</span>
-                </div>
-            </li>
-            {order.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
-                    <div className="flex flex-col">
-                        <span>{item.name}</span>
-                    </div>
-                    <div className="flex flex-col text-right">
-                        <span>{item.quantity}</span>
-                    </div>
-                    <div className="flex flex-col text-right">
-                        <span>{item.price}</span>
-                    </div>
-                </li>
-            ))}
-        </ul>
+                        <li className="flex justify-between border-b-2 border-gray-200 py-2">
+                          <div className="flex flex-col">
+                            <span className="font-semibold">Item</span>
+                          </div>
+                          <div className="flex flex-col text-right">
+                            <span className="font-semibold">Qty</span>
+                          </div>
+                          <div className="flex flex-col text-right">
+                            <span className="font-semibold">Price</span>
+                          </div>
+                        </li>
+                        {order.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
+                            <div className="flex flex-col">
+                              <span>{item.name}</span>
+                            </div>
+                            <div className="flex flex-col text-right">
+                              <span>{item.quantity}</span>
+                            </div>
+                            <div className="flex flex-col text-right">
+                              <span>{item.price}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                       <div className='py-3'>
                         <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
                           Done
@@ -198,31 +206,31 @@ export default function Restaurant() {
                       <h3 className='text-black font-semibold'>Order #{order.id}</h3>
                       <p className='py-1'>Status: {order.status}</p>
                       <ul>
-            <li className="flex justify-between border-b-2 border-gray-200 py-2">
-                <div className="flex flex-col">
-                    <span className="font-semibold">Item</span>
-                </div>
-                <div className="flex flex-col text-right">
-                    <span className="font-semibold">Qty</span>
-                </div>
-                <div className="flex flex-col text-right">
-                    <span className="font-semibold">Price</span>
-                </div>
-            </li>
-            {order.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
-                    <div className="flex flex-col">
-                        <span>{item.name}</span>
-                    </div>
-                    <div className="flex flex-col text-right">
-                        <span>{item.quantity}</span>
-                    </div>
-                    <div className="flex flex-col text-right">
-                        <span>{item.price}</span>
-                    </div>
-                </li>
-            ))}
-        </ul>
+                        <li className="flex justify-between border-b-2 border-gray-200 py-2">
+                          <div className="flex flex-col">
+                            <span className="font-semibold">Item</span>
+                          </div>
+                          <div className="flex flex-col text-right">
+                            <span className="font-semibold">Qty</span>
+                          </div>
+                          <div className="flex flex-col text-right">
+                            <span className="font-semibold">Price</span>
+                          </div>
+                        </li>
+                        {order.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="flex justify-between border-b-2 border-gray-200 py-2">
+                            <div className="flex flex-col">
+                              <span>{item.name}</span>
+                            </div>
+                            <div className="flex flex-col text-right">
+                              <span>{item.quantity}</span>
+                            </div>
+                            <div className="flex flex-col text-right">
+                              <span>{item.price}</span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                       <div className='py-3'>
                         <button className='doneButton' onClick={() => handleDoneButtonClick(order.id, order.status)}>
                           Done
@@ -237,5 +245,5 @@ export default function Restaurant() {
       </div>
     </BaseLayout>
   );
-  
+
 }
