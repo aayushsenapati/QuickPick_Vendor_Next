@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { toast } from "react-toastify";
 
-function DeleteRestaurantDialog({ selectedRestaurant }) {
+function DeleteRestaurantDialog({ selectedRestaurant,setRestProps }) {
     const [isOpen, setIsOpen] = useState(false);
     const session = useSession({
         required: true,
@@ -29,6 +29,7 @@ function DeleteRestaurantDialog({ selectedRestaurant }) {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Restaurant deleted successfully:', data);
+                setRestProps('');
                 toast.success('Restaurant deleted successfully!', {
                     position: "top-center",
                     autoClose: 5000,
