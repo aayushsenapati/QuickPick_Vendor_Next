@@ -43,6 +43,10 @@ function AddRestaurantDialog() {
                     theme: "dark",
                 });
                 handleClose(); // Close the dialog after successful submission
+                setRestaurantName('');
+                setUpiId('');
+                setRestaurantImage(null);
+
             }
             else if (response.status === 409) {
                 console.log('Restaurant name exists');
