@@ -50,7 +50,14 @@ export async function POST(request) {
     // Get the vendor document
     const q = query(collection(db, "vendor"), where("email", "==", email), limit(1));
     const vendorSnapshot = await getDocs(q);
-    const vendorRef = vendorSnapshot.docs[0].ref;
+    let vendorRef;
+    if(vendorSnapshot.docs.length==0)
+    {
+        vendorRef = await addDoc(collection(db, "vendor"), { email: email, restaurants : [] });
+    }
+    else{
+        vendorRef = vendorSnapshot.docs[0].ref;
+    }
     // console.log(vendorRef)
 
     // Add the restaurant reference to the vendor's restaurants array
