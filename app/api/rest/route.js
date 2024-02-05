@@ -1,5 +1,5 @@
 import { db,storage } from '@/app/firebase/config';
-import { ref, uploadBytes,getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes,getDownloadURL,deleteObject} from "firebase/storage";
 import { NextResponse } from 'next/server';
 import { collection, getDocs, getDoc, where, limit, query, setDoc, updateDoc, arrayUnion, doc, addDoc, arrayRemove, deleteDoc } from "firebase/firestore";
 
@@ -84,8 +84,14 @@ export async function POST(request) {
 
 
 export async function PUT(request) {
-  const body = await request.json();
-  const { oldRestaurantName, restaurantName, upiId, image } = body;
+
+
+  const body = await request.formData();
+  const restaurantName = body.get('restaurantName');
+  const upiId = body.get('upiId');
+  const oldRestaurantName = body.get('oldRestaurantName');
+  const image = body.get('image');
+  const email = body.get('email');
 
   console.log("old rest:", oldRestaurantName);
   console.log("new rest:", restaurantName);
@@ -132,7 +138,7 @@ export async function PUT(request) {
     const restaurantRefData = restaurantDoc.docs[0].data();
 
     let downloadURL = restaurantRefData.downloadURL;
-    if (image) {
+    if (image!=="null") {
       const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
       const snapshot = await uploadBytes(storageRef, image);
       downloadURL = await getDownloadURL(storageRef);
@@ -160,10 +166,11 @@ export async function DELETE(request) {
     const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))
     const RestaurantSnapshot = await getDocs(r);
     const RestaurantData = RestaurantSnapshot.docs[0].data();
-    let downloadURL = RestaurantData.downloadURL;
-    if(downloadURL !== "restaurants/stock.jpg"){
+    let downloadURL = RestaurantData.image;
+    const stockexist=await getDownloadURL(ref(storage,"restaurants/stock.jpg"));
+    if(downloadURL !== stockexist){
       const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
-      await storageRef.delete();
+      await deleteObject(storageRef);
     }
     
 
