@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect} from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import AddMenuDialog from '../components/AddMenu';

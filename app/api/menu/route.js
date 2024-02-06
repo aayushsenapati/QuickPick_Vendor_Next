@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/firebase/config';
-import { collection, getDocs, where, query, getDoc, limit, arrayUnion, updateDoc, arrayRemove, runTransaction, FieldValue } from "firebase/firestore";
+import { collection, getDocs, where, query, getDoc, limit, arrayUnion, updateDoc, arrayRemove, runTransaction, doc} from "firebase/firestore";
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export async function GET(request) {
@@ -37,7 +39,8 @@ export async function GET(request) {
         if (restaurantData.menu) {
           itemsWithPricing = restaurantData.menu.map((item) => ({
             name: item.name,
-            price: item.price
+            price: item.price,
+            item_id: item.item_id
           }));
         }
         console.log(itemsWithPricing)
@@ -53,6 +56,7 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Error fetching data' }, { status: 500 });
   }
 }
+
 
 
 export async function PATCH(request) {
@@ -71,27 +75,31 @@ export async function PATCH(request) {
         return NextResponse.json({ error: 'Item already exists in the menu' }, { status: 409 }); // Conflict
       }
 
-      await updateDoc(RestaurantRef, { menu: arrayUnion({ name: ItemName, price: ItemPrice }), });
+      const newItem = { 
+        name: ItemName, 
+        price: ItemPrice, 
+        item_id:uuidv4() // Generate a unique Firebase ID for the item
+      };
+
+      await updateDoc(RestaurantRef, { menu: arrayUnion(newItem) });
     }
     else {
       for (const menuItem of menu) {
         if (menuItem.name === selectedMenuItem.name) {
           const index = menu.indexOf(menuItem); // Get the index of the matching item
-          // await updateDoc(RestaurantRef, {
-          //   menu: arrayRemove(menu, index), // Remove the old item
-          //   menu: arrayUnion({ name: ItemName, price: ItemPrice }), // Add the updated item
 
           await runTransaction(db, async (transaction) => {
             const doc = await transaction.get(RestaurantRef);
             if (doc.exists) {
-              // const menu = doc.data().menu;
-              // const oldItem = menu[index]; // Get the old item at the specified index
-              menu[index] = { name: ItemName, price: ItemPrice }; // Update the item in-place
+              menu[index] = { 
+                name: ItemName, 
+                price: ItemPrice, 
+                item_id: menuItem.item_id // Keep the same item_id
+              }; 
               transaction.update(RestaurantRef, { menu }); // Commit the updated array
             }
           });
 
-          // });
           break;
         }
       }
