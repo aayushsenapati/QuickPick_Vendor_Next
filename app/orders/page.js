@@ -65,7 +65,10 @@ export default function Restaurant() {
 
       if (response.ok) {
         console.log('Order status updated successfully');
-        fetchOrder(selectedRestaurant);
+        // Update the state directly
+        setOrderItems(prevState => prevState.map(order => 
+          order.id === orderId ? { ...order, status: newStatus } : order
+        ));
       } else {
         console.error('Failed to update order status');
       }
