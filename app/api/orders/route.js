@@ -2,7 +2,7 @@ import { db } from '@/app/firebase/config';
 import { NextResponse } from 'next/server';
 import { collection, getDocs, where, query, updateDoc, limit } from 'firebase/firestore';
 
-export async function GET(request) {
+export async function GET(request) { 
   const { searchParams } = new URL(request.url);
   const restaurant = searchParams.get('restaurant');
   console.log(restaurant);
@@ -18,7 +18,11 @@ export async function GET(request) {
 
     if (!querySnapshot.empty) {
       // 2. Map the order data from the documents
-      const orderData = querySnapshot.docs.map((item) => item.data());
+      const orderData = querySnapshot.docs.map((item) => {
+        const data = item.data();
+        const id = item.id;
+        return { ...data, id }; // Include document ID in the object
+      });
 
       // console.log(orderData);
 
@@ -30,6 +34,7 @@ export async function GET(request) {
     console.error(error);
     return NextResponse.json({ error: 'Failed to retrieve orders' }, { status: 500 });
   }
+
 }
 
 
@@ -40,14 +45,14 @@ export async function PATCH(request) {
   console.log('id:', id);
   console.log('new status: ', newStatus);
 
-  const q = query(collection(db, "orders"), where("id", "==", id), limit(1));
+  const q = query(collection(db, "orders"));
   const querySnapshot = await getDocs(q);
 
-  if (querySnapshot.docs.length > 0) {
-    const orderRef = querySnapshot.docs[0].ref;
+  const orderDoc = querySnapshot.docs.find(doc => doc.id === id);
 
+  if (orderDoc) {
     try {
-      await updateDoc(orderRef, { status: newStatus });
+      await updateDoc(orderDoc.ref, { status: newStatus });
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (error) {
       console.error(error);
