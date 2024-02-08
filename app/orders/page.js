@@ -36,7 +36,9 @@ export default function Restaurant() {
       const data = await response.json();
       if (data.orderData) {
         setOrderItems(prevState => [...data.orderData]);
-      };
+      } else {
+        setOrderItems([]); // Clear the previous orders if no orders are found for the selected restaurant
+      }
       console.log("state :", orderItems, "data :", data.orderData);
     } catch (error) {
       console.error(error);
@@ -65,7 +67,10 @@ export default function Restaurant() {
 
       if (response.ok) {
         console.log('Order status updated successfully');
-        fetchOrder(selectedRestaurant);
+        // Update the state directly
+        setOrderItems(prevState => prevState.map(order => 
+          order.id === orderId ? { ...order, status: newStatus } : order
+        ));
       } else {
         console.error('Failed to update order status');
       }

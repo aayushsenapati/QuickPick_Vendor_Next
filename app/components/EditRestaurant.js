@@ -5,10 +5,13 @@ import { toast } from "react-toastify";
 import { redirect } from 'next/navigation';
 
 
+
 function EditRestaurantDialog({ selectedRestaurant }) {
     const [isOpen, setIsOpen] = useState(false);
     const [restaurantName, setRestaurantName] = useState('');
     const [upiId, setUpiId] = useState('');
+    const [image, setImage] = useState(null);
+
     const session = useSession({
         required: true,
         onUnauthenticated() {
@@ -24,13 +27,15 @@ function EditRestaurantDialog({ selectedRestaurant }) {
         console.log('Restaurant Name:', restaurantName);
         console.log('UPI ID:', upiId);
         try {
+            const formData = new FormData();
+            formData.append('restaurantName', restaurantName);
+            formData.append('upiId', upiId);
+            formData.append('image', image);
+            formData.append('email', session.data.user.email);
+            formData.append('oldRestaurantName', selectedRestaurant);
             const response = await fetch('/api/rest', {
                 method: 'PUT',
-                body: JSON.stringify({
-                    oldRestaurantName: selectedRestaurant,
-                    restaurantName: restaurantName,
-                    upiId: upiId,
-                }),
+                body: formData
             });
             if (response.ok) {
                 const data = await response.json();
@@ -67,6 +72,12 @@ function EditRestaurantDialog({ selectedRestaurant }) {
             else {
                 console.error('Failed to add restaurant:', response.statusText);
             }
+            setImage(null);
+            setRestaurantName('');
+            setUpiId('');
+
+
+
         } catch (error) {
             console.error('Error:', error);
         }
@@ -126,6 +137,13 @@ function EditRestaurantDialog({ selectedRestaurant }) {
                                                     value={upiId}
                                                     onChange={(e) => setUpiId(e.target.value)}
                                                     required
+                                                />
+                                                <input
+                                                    type="file"
+                                                    id="image"
+                                                    name="image"
+                                                    className="w-full border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                                    onChange={(e) => setImage(e.target.files[0])}
                                                 />
                                                 <div className="mt-5 sm:mt-4 sm:flex sm:justify-end">
                                                     <button

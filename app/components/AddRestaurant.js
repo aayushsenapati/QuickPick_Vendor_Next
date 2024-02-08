@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { toast } from "react-toastify";
 import { redirect } from 'next/navigation';
 
-function AddRestaurantDialog() {
+function AddRestaurantDialog({ setRestProps }) {
     const [isOpen, setIsOpen] = useState(false);
     const [restaurantName, setRestaurantName] = useState('');
     const [upiId, setUpiId] = useState('');
@@ -43,6 +43,11 @@ function AddRestaurantDialog() {
                     theme: "dark",
                 });
                 handleClose(); // Close the dialog after successful submission
+                setRestaurantName('');
+                setUpiId('');
+                setRestaurantImage(null);
+                setRestProps(restaurantName);
+
             }
             else if (response.status === 409) {
                 console.log('Restaurant name exists');
