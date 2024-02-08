@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { NAV_LINKS } from '@/constants';
+import Policy from './Policy';
 
 const Navbar = ({onHomeClick, onAboutClick, onContactClick }) => {
   const router = useRouter();
@@ -21,6 +22,7 @@ const Navbar = ({onHomeClick, onAboutClick, onContactClick }) => {
           <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onHomeClick}>Home</li>
           <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onAboutClick}>About</li>
           <li className='regular-16 text-gray-55 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold' onClick={onContactClick}>Contact Us</li>
+          <Policy/>
         {/* ))} */}
       </ul>
     </nav>

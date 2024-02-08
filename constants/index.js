@@ -9,6 +9,7 @@ export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
     { href: '/about', key: 'about', label: 'About' },
     { href: '/', key: 'contact_us', label: 'Contact Us' },
+    { href: '/', key: 'policy', label: 'Policy' },
   ];
 
 export const sidebarItems = [
