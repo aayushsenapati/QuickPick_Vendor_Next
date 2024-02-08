@@ -36,9 +36,7 @@ export default function Restaurant() {
       const data = await response.json();
       if (data.orderData) {
         setOrderItems(prevState => [...data.orderData]);
-      } else {
-        setOrderItems([]); // Clear the previous orders if no orders are found for the selected restaurant
-      }
+      };
       console.log("state :", orderItems, "data :", data.orderData);
     } catch (error) {
       console.error(error);
