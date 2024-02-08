@@ -4,6 +4,7 @@ import React from 'react';
 const Contactus = () => {
     const mail = 'quickpick2623@gmail.com';
     const instagramId = 'itsquickpick';
+    const phoneNumber = '+918095300313';
 
     return (
         <div id='contact-section' className="text-black p-8 mt-8">
@@ -26,6 +27,10 @@ const Contactus = () => {
                 <p className="flex items-center justify-center gap-2 text-2xl hover:text-yellow-600">
                     <span className="font-semibold">Instagram:</span>
                     <a href={`https://www.instagram.com/${instagramId}`}>{instagramId}</a>
+                </p>
+                <p className="flex items-center justify-center gap-2 text-2xl hover:text-yellow-600">
+                    <span className="font-semibold">Phone:</span>
+                    <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
                 </p>
             </div>
 
