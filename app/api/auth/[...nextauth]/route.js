@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/firebase/config";
 import { collection, getDocs, query, where, addDoc } from "firebase/firestore"; 
@@ -11,6 +12,10 @@ const authOptions = {
     signIn: "/signin",
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {},
