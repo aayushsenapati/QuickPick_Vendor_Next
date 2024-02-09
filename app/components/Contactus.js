@@ -9,13 +9,13 @@ const Contactus = () => {
     return (
         <div id='contact-section' className="text-black p-8 mt-8">
             <div className="flex justify-center items-center">
-            <Image
-            src="/team_rev.png"
-            alt="team"
-            width={1000}
-            height={1000}
-            className="mx-auto"
-          />
+                <Image
+                    src="/team_rev.png"
+                    alt="team"
+                    width={1000}
+                    height={1000}
+                    className="mx-auto"
+                />
             </div>
 
             <div className="contact-info mx-auto">
@@ -32,6 +32,15 @@ const Contactus = () => {
                     <span className="font-semibold">Phone:</span>
                     <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
                 </p>
+                <p className="flex items-center justify-center gap-2 text-2xl hover:text-yellow-600">
+                    <span className="font-semibold">Address:</span>
+                    <span className="text-base">
+                        T1403 Snn Raj Lake View Phase-2 <br />
+                        Ranka Colony Road, Bilekahalli, <br />
+                        Bannerghatta Road, Bangalore-560076
+                    </span>
+                </p> 
+
             </div>
 
         </div>
