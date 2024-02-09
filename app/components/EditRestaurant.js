@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 
 
-function EditRestaurantDialog({ selectedRestaurant }) {
+function EditRestaurantDialog({ selectedRestaurant,setRestProps }) {
     const [isOpen, setIsOpen] = useState(false);
     const [restaurantName, setRestaurantName] = useState('');
     const [upiId, setUpiId] = useState('');
@@ -40,6 +40,7 @@ function EditRestaurantDialog({ selectedRestaurant }) {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Restaurant edited successfully:', data);
+                setRestProps(restaurantName);
                 toast.success('Restaurant edited successfully!', {
                     position: "top-center",
                     autoClose: 5000,
@@ -112,7 +113,6 @@ function EditRestaurantDialog({ selectedRestaurant }) {
                                                     <div className="col-span-1"> */}
                                                 <label htmlFor="restaurantName" className="text-sm font-medium text-gray-700">
                                                     Restaurant Name
-                                                    <span className="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <input
                                                     type="text"
@@ -121,13 +121,10 @@ function EditRestaurantDialog({ selectedRestaurant }) {
                                                     className="w-full border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                                                     value={restaurantName}
                                                     onChange={(e) => setRestaurantName(e.target.value)}
-                                                    required
                                                 />
-                                                {/* </div> */}
-                                                {/* <div className="col-span-1"> */}
+
                                                 <label htmlFor="upiId" className="text-sm font-medium text-gray-700">
                                                     UPI ID
-                                                    <span className="text-red-500 ml-1">*</span>
                                                 </label>
                                                 <input
                                                     type="text"
@@ -136,8 +133,8 @@ function EditRestaurantDialog({ selectedRestaurant }) {
                                                     className="w-full border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
                                                     value={upiId}
                                                     onChange={(e) => setUpiId(e.target.value)}
-                                                    required
                                                 />
+
                                                 <input
                                                     type="file"
                                                     id="image"

@@ -26,29 +26,23 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle submission logic here (e.g., send data to server)
         console.log('Item name:', ItemName);
         console.log('Item price:', ItemPrice);
+    
 
-        let ip = Number(ItemPrice)
-        // ...
         let itemExists = false;
-
-        // Enhanced check for item name and price match
-
+    
         if (selectedMenuItem.name == ItemName && selectedMenuItem.price == ip) {
             itemExists = true;
-            // Exit the loop early if a match is found
         }
-
-
+    
         if (!itemExists) {
             try {
                 const response = await fetch('/api/menu', {
                     method: 'PATCH',
                     body: JSON.stringify({
                         ItemName: ItemName,
-                        ItemPrice: ip,
+                        ItemPrice: ItemPrice,
                         restaurantName: selectedRestaurant,
                         isEdit: true,
                         selectedMenuItem: selectedMenuItem
@@ -66,21 +60,24 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                     fetchmenu(selectedRestaurant)
                     onSave(); // Close the dialog after successful submission
                 }
-                else if (response.status === 409) {
-                    console.log('Item name exists');
-                    const errorMessage = 'Item name exists';
-                    toast.error(errorMessage, {
+                else {
+                    const data = await response.json(); // Parse the response body as JSON
+                    console.error('Failed to edit Item:', data.error);
+                    toast.error(data.error, { // Display the error message sent by the server
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: true,
                         theme: "dark",
                     });
                 }
-                else {
-                    console.error('Failed to edit Item:', response.statusText);
-                }
             } catch (error) {
                 console.error('Error:', error);
+                toast.error('Error: ' + error.message, { // Display the error message in a toast
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    theme: "dark",
+                });
             }
         }
         else {

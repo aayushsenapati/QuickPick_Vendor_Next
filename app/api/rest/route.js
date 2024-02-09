@@ -37,10 +37,16 @@ export async function GET(request) {
 export async function POST(request) {
   const body = await request.formData();
   const restaurantName = body.get('restaurantName');
-  const upiId = body.get('upiId');
-  const email = body.get('email');
+  const upiId = body.get('upiId').trim();
+  const email = body.get('email').trim();
   const image = body.get('image');
   console.log('this is image', !!image, image === "undefined", image === "null");
+  console.log('this is upi', upiId);
+  console.log('this is email', email);
+  if (restaurantName.trim() === '' || upiId === '') {
+    console.log('Restaurant name or UPI ID cannot be empty');
+    return NextResponse.json({ error: "Restaurant name or UPI ID cannot be empty", }, { status: 400 }); // Bad request status code
+  }
 
   // Check for existing restaurant name
   const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1));
@@ -89,34 +95,13 @@ export async function PUT(request) {
   console.log("new rest:", restaurantName);
   console.log("new upi:", upiId);
 
-  // Check if old restaurant details
-  if (oldRestaurantName == restaurantName) {
-    const oldRestaurantSnapshot = await getDocs(
-      collection(db, "restaurants"),
-      where("name", "==", oldRestaurantName)
-    );
-    const oldRestaurantData = oldRestaurantSnapshot.docs[0].data();
-    if (upiId == oldRestaurantData.upiId) {
-      return NextResponse.json({
-        error: "There is no change in the restaurant details",
-      }, { status: 400 });
-    }
-  }
 
-  // Check for existing restaurant name
-  const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))
-  const existingRestaurantSnapshot = await getDocs(r);
-  console.log(existingRestaurantSnapshot.docs.length)
-
-  if (existingRestaurantSnapshot.docs.length > 0 && oldRestaurantName != restaurantName) {
-    return NextResponse.json({ error: "Restaurant name already exists", }, { status: 409 }); // Conflict status code
-  }
 
   try {
-    // Retrieve the restaurant document to update
+
+
     const rd = query(collection(db, "restaurants"), where("name", "==", oldRestaurantName));
     const restaurantDoc = await getDocs(rd);
-
     if (restaurantDoc.docs.length === 0) {
       // Restaurant not found
       return NextResponse.json({
@@ -143,7 +128,27 @@ export async function PUT(request) {
     }
 
     // Update the restaurant document
-    await updateDoc(restaurantRef, { name: restaurantName, upiId: upiId, image: downloadURL });
+    const updateData = {};
+    if (restaurantName !== restaurantRefData.name && restaurantName.trim() !== '') {
+      updateData.name = restaurantName;
+    }
+    if (upiId !== restaurantRefData.upiId && upiId.trim() !== '') {
+      updateData.upiId = upiId;
+    }
+    if (image !== "null" && downloadURL !== restaurantRefData.image) {
+      updateData.image = downloadURL;
+    }
+
+    // Check if there's anything to update
+    if (Object.keys(updateData).length === 0) {
+      return NextResponse.json({
+        error: "There is no change in the restaurant details",
+      }, { status: 400 });
+    }
+
+    // Update the restaurant document
+    await updateDoc(restaurantRef, updateData);
+
 
     return NextResponse.json({ success: true }, { status: 200 }); // Indicate successful update
 

@@ -28,7 +28,7 @@ function AddRestaurantDialog({ setRestProps }) {
             formData.append('upiId', upiId);
             formData.append('email', session.data.user.email);
             formData.append('image', restaurantImage);
-
+    
             const response = await fetch('/api/rest', {
                 method: 'POST',
                 body: formData,
@@ -47,20 +47,17 @@ function AddRestaurantDialog({ setRestProps }) {
                 setUpiId('');
                 setRestaurantImage(null);
                 setRestProps(restaurantName);
-
+    
             }
-            else if (response.status === 409) {
-                console.log('Restaurant name exists');
-                const errorMessage = 'Restaurant name exists';
-                toast.error(errorMessage, {
+            else {
+                const data = await response.json(); // Parse the response body as JSON
+                console.error('Failed to add restaurant:', data.error);
+                toast.error(data.error, { // Display the error message sent by the server
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: true,
                     theme: "dark",
                 });
-            }
-            else {
-                console.error('Failed to add restaurant:', response.statusText);
             }
         } catch (error) {
             console.error('Error:', error);

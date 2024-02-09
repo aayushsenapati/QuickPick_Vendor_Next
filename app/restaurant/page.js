@@ -141,7 +141,7 @@ export default function Restaurant() {
                                     <button className="hover:bg-gray-100 text-sm text-gray-500 font-semibold px-3 py-1 rounded ml-4">
                                         Delete Restaurant
                                     </button> */}
-                                        <EditRestaurantDialog selectedRestaurant={selectedRestaurant} />
+                                        <EditRestaurantDialog selectedRestaurant={selectedRestaurant} setRestProps={setRestProps}/>
                                         <DeleteRestaurantDialog selectedRestaurant={selectedRestaurant} setRestProps={setRestProps} />
                                     </div>
                                 </div>
