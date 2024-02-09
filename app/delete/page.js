@@ -1,29 +1,36 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import DeleteUserDialog from '../components/DeleteUserDialog';
 
 const DeleteAccount = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    signOut({ redirect: false }); // Sign out on first load
-  }, []); // Empty dependency array ensures this runs only once
+  const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession();
 
   const handleDelete = () => {
-    console.log(session.user.email); // Log the email
+    console.log(session.user.email);
     setIsOpen(true);
   };
 
-  const handleGoogleSignIn = () => {
-    signIn('google');
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    await signIn('google');
+    setLoading(false);
   };
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-yellow-500">
-      {!session && (
+      {status === 'unauthenticated' && (
         <button 
           onClick={handleGoogleSignIn} 
           className="p-4 mt-8 bg-black text-yellow-500 rounded-md text-lg w-1/2"
@@ -31,8 +38,15 @@ const DeleteAccount = () => {
           Sign In with Google
         </button>
       )}
-      {session && (
+      {status === 'authenticated' && (
         <>
+          <h1 className="text-4xl text-white">{session.user.email}</h1>
+          <button 
+            onClick={handleSignOut} 
+            className="p-4 mt-8 bg-black text-yellow-500 rounded-md text-lg w-1/2"
+          >
+            Sign Out
+          </button>
           <button 
             onClick={handleDelete} 
             className="p-4 mt-8 bg-black text-yellow-500 rounded-md text-lg w-1/2"
