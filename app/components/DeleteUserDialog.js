@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import {signOut} from 'next-auth/react';
 
 const DeleteUserDialog = ({ email, onClose }) => {
   const [error, setError] = useState(null);
@@ -18,6 +19,7 @@ const DeleteUserDialog = ({ email, onClose }) => {
         if (data.success) {
           alert('Account deleted successfully');
           onClose();
+          signOut();
         } else {
           setError(data.error);
         }

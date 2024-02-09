@@ -12,6 +12,7 @@ const DeleteAccount = () => {
   const handleDelete = () => {
     console.log(session.user.email);
     setIsOpen(true);
+
   };
 
   const handleGoogleSignIn = async () => {
