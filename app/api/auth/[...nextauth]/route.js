@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/app/firebase/config";
 import { collection, getDocs, query, where, addDoc } from "firebase/firestore"; 
 import { db } from "@/app/firebase/config";
@@ -10,22 +10,46 @@ const authOptions = {
   // Configure one or more authentication providers
   pages: {
     signIn: "/signin",
+    signUp: "/signup",
   },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      async authorize() {
+        try {
+          const provider = new GoogleAuthProvider();
+          const userCredential = await signInWithPopup(auth, provider);
+          const user = userCredential.user;
+          return user;
+        } catch (error) {
+          console.error(error);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+        }
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {},
       async authorize(credentials) {
         try {
-          const userCredential = await signInWithEmailAndPassword(
-            auth,
-            credentials.email || "",
-            credentials.password || ""
-          );
+          let userCredential;
+          if (credentials.isSignUp) {
+            userCredential = await createUserWithEmailAndPassword(
+              auth,
+              credentials.email || "",
+              credentials.password || ""
+            );
+          } else {
+            userCredential = await signInWithEmailAndPassword(
+              auth,
+              credentials.email || "",
+              credentials.password || ""
+            );
+          }
+
           if (userCredential.user) {
             const email = userCredential.user.email;
 

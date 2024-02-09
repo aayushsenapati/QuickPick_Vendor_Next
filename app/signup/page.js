@@ -1,8 +1,8 @@
 'use client';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { auth } from '../firebase/config';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 export default function Signup() {
@@ -11,13 +11,12 @@ export default function Signup() {
   const [passwordAgain, setPasswordAgain] = useState('');
   const router = useRouter();
 
-  const signup = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      router.push('/signin');
-    } catch (error) {
-      alert(error.message);
+  const signup = () => {
+    if (password !== passwordAgain) {
+      alert("Passwords do not match");
+      return;
     }
+    signIn('credentials', { email, password, isSignUp: true, callbackUrl: '/signin' });
   };
 
   return (
