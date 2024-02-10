@@ -114,6 +114,7 @@ export async function PUT(request) {
 
     let downloadURL = restaurantRefData.downloadURL;
     if (image !== "null") {
+      if(restaurantName.trim() === ''){restaurantName = oldRestaurantName}
       const storageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
       const snapshot = await uploadBytes(storageRef, image);
       downloadURL = await getDownloadURL(storageRef);
