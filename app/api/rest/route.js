@@ -85,9 +85,9 @@ export async function POST(request) {
 
 export async function PUT(request) {
   const body = await request.formData();
-  const restaurantName = body.get('restaurantName');
+  let restaurantName = body.get('restaurantName');
   const upiId = body.get('upiId');
-  const oldRestaurantName = body.get('oldRestaurantName');
+  let oldRestaurantName = body.get('oldRestaurantName');
   const image = body.get('image');
   const email = body.get('email');
 
@@ -132,6 +132,27 @@ export async function PUT(request) {
     const updateData = {};
     if (restaurantName !== restaurantRefData.name && restaurantName.trim() !== '') {
       updateData.name = restaurantName;
+      if(image === "null"){
+        const oldImageURL = restaurantRefData.image;
+        const stockImageURL = await getDownloadURL(ref(storage, "restaurants/stock.jpg"));
+        if(oldImageURL !== stockImageURL){
+          const oldImageRef = ref(storage, `restaurants/${email}/${restaurantRefData.name}.jpg`);
+          // Download the image
+          const url = await getDownloadURL(oldImageRef);
+          const response = await fetch(url);
+          const blob = await response.blob();
+    
+          // Delete the old image
+          await deleteObject(oldImageRef);
+    
+          // Upload the image with the new name
+          const newImageRef = ref(storage, `restaurants/${email}/${restaurantName}.jpg`);
+          await uploadBytes(newImageRef, blob);
+          const downloadURL = await getDownloadURL(newImageRef);
+    
+          updateData.image = downloadURL;
+        }
+      }
     }
     if (upiId !== restaurantRefData.upiId && upiId.trim() !== '') {
       updateData.upiId = upiId;
