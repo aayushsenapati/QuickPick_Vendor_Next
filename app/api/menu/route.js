@@ -62,10 +62,9 @@ export async function GET(request) {
 export async function PATCH(request) {
   const body = await request.json()
   const { ItemName, ItemPrice, restaurantName, isEdit, selectedMenuItem } = body
-  let ip = ItemPrice.trim();
-  ip=Number(ItemPrice)
+  let ip = String(ItemPrice).trim();
   console.log(ItemName, ItemPrice, restaurantName, isEdit, selectedMenuItem)
-  if (ItemName.trim() === '' || ItemPrice.trim() === '') {
+  if (ItemName.trim() === '' || ip === '') {
     return NextResponse.json({ error: 'Item name and price cannot be empty' }, { status: 400 }); // Bad Request
   }
   try {
@@ -82,7 +81,7 @@ export async function PATCH(request) {
 
       const newItem = { 
         name: ItemName, 
-        price: ip, 
+        price: Number(ip), 
         item_id:uuidv4() // Generate a unique Firebase ID for the item
       };
 
@@ -98,7 +97,7 @@ export async function PATCH(request) {
             if (doc.exists) {
               menu[index] = { 
                 name: ItemName, 
-                price: ip, 
+                price: Number(ip), 
                 item_id: menuItem.item_id // Keep the same item_id
               }; 
               transaction.update(RestaurantRef, { menu }); // Commit the updated array

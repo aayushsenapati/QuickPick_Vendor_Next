@@ -32,7 +32,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
 
         let itemExists = false;
     
-        if (selectedMenuItem.name == ItemName && selectedMenuItem.price == ip) {
+        if (selectedMenuItem.name == ItemName && selectedMenuItem.price == ItemPrice) {
             itemExists = true;
         }
     
