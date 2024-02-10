@@ -11,17 +11,15 @@ function AddMenuDialog({ selectedRestaurant, fetchmenu }) {
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle submission logic here (e.g., send data to server)
         console.log('Item name:', ItemName);
         console.log('Item price:', ItemPrice);
-
-        // ...
+    
         try {
             const response = await fetch('/api/menu', {
                 method: 'PATCH',
                 body: JSON.stringify({
                     ItemName: ItemName,
-                    ItemPrice: Number(ItemPrice),
+                    ItemPrice:ItemPrice,
                     restaurantName: selectedRestaurant,
                     isEdit: false,
                     selectedMenuItem: ''
@@ -39,22 +37,27 @@ function AddMenuDialog({ selectedRestaurant, fetchmenu }) {
                 fetchmenu(selectedRestaurant)
                 handleClose(); // Close the dialog after successful submission
             }
-            else if (response.status === 409) {
-                console.log('Item name exists');
-                const errorMessage = 'Item name exists';
-                toast.error(errorMessage, {
+            else {
+                const errorData = await response.json();
+                console.log('Error:', errorData);
+                toast.error(errorData.error, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: true,
                     theme: "dark",
                 });
             }
-            else {
-                console.error('Failed to add Item:', response.statusText);
-            }
         } catch (error) {
             console.error('Error:', error);
+            toast.error(`Error: ${error.error || 'Failed to add item'}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                theme: "dark",
+            });
         }
+        setItemName('');
+        setItemPrice('');
     };
 
     return (

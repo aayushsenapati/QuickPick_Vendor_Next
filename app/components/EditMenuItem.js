@@ -62,7 +62,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                 }
                 else {
                     const data = await response.json(); // Parse the response body as JSON
-                    console.error('Failed to edit Item:', data.error);
+                    console.log('Failed to edit Item:', data.error);
                     toast.error(data.error, { // Display the error message sent by the server
                         position: "top-center",
                         autoClose: 5000,
@@ -71,7 +71,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                     });
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.log('Error:', error);
                 toast.error('Error: ' + error.message, { // Display the error message in a toast
                     position: "top-center",
                     autoClose: 5000,
