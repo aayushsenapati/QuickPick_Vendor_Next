@@ -40,7 +40,7 @@ function EditRestaurantDialog({ selectedRestaurant,setRestProps }) {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Restaurant edited successfully:', data);
-                setRestProps(restaurantName);
+                if(restaurantName) setRestProps(restaurantName);
                 toast.success('Restaurant edited successfully!', {
                     position: "top-center",
                     autoClose: 5000,
@@ -48,39 +48,27 @@ function EditRestaurantDialog({ selectedRestaurant,setRestProps }) {
                     theme: "dark",
                 });
                 handleClose(); // Close the dialog after successful submission
-            }
-            else if (response.status === 409) {
-                console.log('Restaurant name exists');
-                const errorMessage = 'Restaurant name exists';
-                toast.error(errorMessage, {
+            } else {
+                const errorData = await response.json();
+                console.error('Failed to edit restaurant:', errorData.error);
+                toast.error(errorData.error, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: true,
                     theme: "dark",
                 });
-            }
-            else if (response.status === 400) {
-                console.log('There is no change in the restaurant details');
-                const message = 'There is no change in the restaurant details';
-                toast.info(message, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: true,
-                    theme: "dark",
-                });
-
-            }
-            else {
-                console.error('Failed to add restaurant:', response.statusText);
             }
             setImage(null);
             setRestaurantName('');
             setUpiId('');
-
-
-
         } catch (error) {
             console.error('Error:', error);
+            toast.error('An error occurred while editing the restaurant.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                theme: "dark",
+            });
         }
         handleClose();
     };
