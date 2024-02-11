@@ -26,7 +26,7 @@ const authOptions = {
           console.error(error);
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(error);
+          
         }
       },
     }),
@@ -76,7 +76,7 @@ const authOptions = {
           console.error(error);
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(error);
+          
         }
       },
     }),

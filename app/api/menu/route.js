@@ -9,8 +9,8 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const restaurantName = searchParams.get('restaurantName');
   const email = searchParams.get('email');
-  console.log(email)
-  console.log(restaurantName)
+  
+  
 
   try {
     // 1. Retrieve vendor document by email
@@ -33,7 +33,7 @@ export async function GET(request) {
         // 3. Fetch restaurant data
         const restaurantDocSnapshot = await getDoc(restaurantRef);
         const restaurantData = restaurantDocSnapshot.data();
-        console.log(restaurantData)
+        
         let itemsWithPricing = []
         // 4. Extract menu with pricing
         if (restaurantData.menu) {
@@ -43,7 +43,7 @@ export async function GET(request) {
             item_id: item.item_id
           }));
         }
-        console.log(itemsWithPricing)
+        
         return NextResponse.json({ itemsWithPricing }, { status: 200 });
       } else {
         return NextResponse.json({ error: 'restaurant not found' }, { status: 404 });
@@ -63,7 +63,7 @@ export async function PATCH(request) {
   const body = await request.json()
   const { ItemName, ItemPrice, restaurantName, isEdit, selectedMenuItem } = body
   let ip = String(ItemPrice).trim();
-  console.log(ItemName, ItemPrice, restaurantName, isEdit, selectedMenuItem)
+  
   if (ItemName.trim() === '' || ip === '') {
     return NextResponse.json({ error: 'Item name and price cannot be empty' }, { status: 400 }); // Bad Request
   }
@@ -121,7 +121,7 @@ export async function PATCH(request) {
 export async function DELETE(request) {
   const body = await request.json()
   const { restaurantName, selectedMenuItem } = body
-  console.log(restaurantName, selectedMenuItem)
+  
 
   try {
     const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))

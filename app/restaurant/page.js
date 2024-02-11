@@ -33,7 +33,7 @@ export default function Restaurant() {
                 setRestaurants(data.restaurantNames);
             } else {
                 // Handle the case where user data is not available
-                console.log("user data not available");
+                
             }
         } catch (error) {
             console.error(error);
@@ -46,7 +46,7 @@ export default function Restaurant() {
             if (restaurantName) {
                 const response = await fetch(`/api/menu?restaurantName=${restaurantName}&email=${session.data.user.email}`);
                 const data = await response.json();
-                console.log(data)
+                
                 setMenuItems(data.itemsWithPricing);
             }
             else {
@@ -73,10 +73,10 @@ export default function Restaurant() {
 
 
     const handleMenuItemSelection = (item) => {
-        // console.log("Selected item:", item);
-        console.log(selectedMenuItem)
+        // 
+        
         setSelectedMenuItem(item);
-        console.log(selectedMenuItem)
+        
         // setIsEditing(item); 
     };
 

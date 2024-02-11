@@ -24,8 +24,8 @@ function EditRestaurantDialog({ selectedRestaurant,setRestProps }) {
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Restaurant Name:', restaurantName);
-        console.log('UPI ID:', upiId);
+        
+        
         try {
             const formData = new FormData();
             formData.append('restaurantName', restaurantName);
@@ -39,7 +39,7 @@ function EditRestaurantDialog({ selectedRestaurant,setRestProps }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Restaurant edited successfully:', data);
+                
                 if(restaurantName) setRestProps(restaurantName);
                 toast.success('Restaurant edited successfully!', {
                     position: "top-center",

@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const email = searchParams.get('email');
-  // console.log(email);
+  // 
 
   const q = query(collection(db, "vendor"), where("email", "==", email), limit(1));
   const querySnapshot = await getDocs(q);
@@ -25,7 +25,7 @@ export async function GET(request) {
       })
     );
 
-    // console.log(restaurantNames);
+    // 
     return NextResponse.json({ restaurantNames }, { status: 200 });
   }
   else {
@@ -40,11 +40,11 @@ export async function POST(request) {
   const upiId = body.get('upiId').trim();
   const email = body.get('email').trim();
   const image = body.get('image');
-  console.log('this is image', !!image, image === "undefined", image === "null");
-  console.log('this is upi', upiId);
-  console.log('this is email', email);
+  
+  
+  
   if (restaurantName.trim() === '' || upiId === '') {
-    console.log('Restaurant name or UPI ID cannot be empty');
+    
     return NextResponse.json({ error: "Restaurant name or UPI ID cannot be empty", }, { status: 400 }); // Bad request status code
   }
 
@@ -68,7 +68,7 @@ export async function POST(request) {
       const storageRef = ref(storage, `restaurants/${email}/${restaurantId}.jpg`);
       const snapshot = await uploadBytes(storageRef, image);
       downloadURL = await getDownloadURL(storageRef);
-      console.log(downloadURL);
+      
     }
     const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
     await setDoc(restaurantRef, { name: restaurantName, upiId: upiId, menu: [], image: downloadURL });
@@ -93,8 +93,8 @@ export async function PUT(request) {
   const image = body.get('image');
   const email = body.get('email');
 
-  console.log("new rest:", restaurantName);
-  console.log("new upi:", upiId);
+  
+  
 
   try {
     const rd = query(collection(db, "restaurants"), where("name", "==", oldRestaurantName));
@@ -149,7 +149,7 @@ export async function PUT(request) {
 export async function DELETE(request) {
   const body = await request.json()
   const { restaurantName, email } = body
-  console.log(restaurantName, email)
+  
 
   try {
     const r = query(collection(db, "restaurants"), where("name", "==", restaurantName), limit(1))

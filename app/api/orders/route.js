@@ -5,7 +5,7 @@ import { collection, getDocs, where, query, updateDoc, limit } from 'firebase/fi
 export async function GET(request) { 
   const { searchParams } = new URL(request.url);
   const restaurant = searchParams.get('restaurant');
-  console.log(restaurant);
+  
 
   try {
     const q = query(
@@ -24,7 +24,7 @@ export async function GET(request) {
         return { ...data, id }; // Include document ID in the object
       });
 
-      // console.log(orderData);
+      // 
 
       return NextResponse.json({ orderData }, { status: 200 });
     } else {
@@ -42,8 +42,8 @@ export async function PATCH(request) {
   const body = await request.json();
   const { id, newStatus } = body;
 
-  console.log('id:', id);
-  console.log('new status: ', newStatus);
+  
+  
 
   const q = query(collection(db, "orders"));
   const querySnapshot = await getDocs(q);

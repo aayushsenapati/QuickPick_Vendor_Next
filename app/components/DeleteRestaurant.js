@@ -17,7 +17,7 @@ function DeleteRestaurantDialog({ selectedRestaurant,setRestProps }) {
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('to delete');
+        
         try {
             const response = await fetch('/api/rest', {
                 method: 'DELETE',
@@ -28,7 +28,7 @@ function DeleteRestaurantDialog({ selectedRestaurant,setRestProps }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Restaurant deleted successfully:', data);
+                
                 setRestProps('');
                 toast.success('Restaurant deleted successfully!', {
                     position: "top-center",

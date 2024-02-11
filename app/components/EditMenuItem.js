@@ -26,8 +26,8 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Item name:', ItemName);
-        console.log('Item price:', ItemPrice);
+        
+        
     
 
         let itemExists = false;
@@ -50,7 +50,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('Item edited successfully:', data);
+                    
                     toast.success('Item edited successfully!', {
                         position: "top-center",
                         autoClose: 5000,
@@ -62,7 +62,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                 }
                 else {
                     const data = await response.json(); // Parse the response body as JSON
-                    console.log('Failed to edit Item:', data.error);
+                    
                     toast.error(data.error, { // Display the error message sent by the server
                         position: "top-center",
                         autoClose: 5000,
@@ -71,7 +71,7 @@ function EditMenuItem({ selectedRestaurant, fetchmenu, selectedMenuItem, onSave,
                     });
                 }
             } catch (error) {
-                console.log('Error:', error);
+                
                 toast.error('Error: ' + error.message, { // Display the error message in a toast
                     position: "top-center",
                     autoClose: 5000,

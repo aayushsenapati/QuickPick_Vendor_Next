@@ -18,7 +18,7 @@ function DeleteMenuDialog({ selectedRestaurant, fetchmenu, selectedMenuItem, onD
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('to delete');
+        
         try {
             const response = await fetch('/api/menu', {
                 method: 'DELETE',
@@ -29,7 +29,7 @@ function DeleteMenuDialog({ selectedRestaurant, fetchmenu, selectedMenuItem, onD
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Item deleted successfully:', data);
+                
                 toast.success('Item deleted successfully!', {
                     position: "top-center",
                     autoClose: 5000,

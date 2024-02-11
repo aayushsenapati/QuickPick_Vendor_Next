@@ -23,7 +23,7 @@ export default function Restaurant() {
         const data = await response.json();
         setRestaurants(data.restaurantNames);
       } else {
-        console.log("user data not available");
+        
       }
     } catch (error) {
       console.error(error);
@@ -39,7 +39,7 @@ export default function Restaurant() {
       } else {
         setOrderItems([]); // Clear the previous orders if no orders are found for the selected restaurant
       }
-      console.log("state :", orderItems, "data :", data.orderData);
+      
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +66,7 @@ export default function Restaurant() {
       });
 
       if (response.ok) {
-        console.log('Order status updated successfully');
+        
         // Update the state directly
         setOrderItems(prevState => prevState.map(order => 
           order.id === orderId ? { ...order, status: newStatus } : order

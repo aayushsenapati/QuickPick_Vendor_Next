@@ -10,7 +10,7 @@ const DeleteAccount = () => {
   const { data: session, status } = useSession();
 
   const handleDelete = () => {
-    console.log(session.user.email);
+    
     setIsOpen(true);
 
   };

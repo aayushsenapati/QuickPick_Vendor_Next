@@ -11,8 +11,8 @@ function AddMenuDialog({ selectedRestaurant, fetchmenu }) {
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Item name:', ItemName);
-        console.log('Item price:', ItemPrice);
+        
+        
     
         try {
             const response = await fetch('/api/menu', {
@@ -27,7 +27,7 @@ function AddMenuDialog({ selectedRestaurant, fetchmenu }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Item added successfully:', data);
+                
                 toast.success('Item added successfully!', {
                     position: "top-center",
                     autoClose: 5000,
@@ -39,7 +39,7 @@ function AddMenuDialog({ selectedRestaurant, fetchmenu }) {
             }
             else {
                 const errorData = await response.json();
-                console.log('Error:', errorData);
+                
                 toast.error(errorData.error, {
                     position: "top-center",
                     autoClose: 5000,

@@ -20,8 +20,8 @@ function AddRestaurantDialog({ setRestProps }) {
     const handleClose = () => setIsOpen(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Restaurant Name:', restaurantName);
-        console.log('UPI ID:', upiId);
+        
+        
         try {
             const formData = new FormData();
             formData.append('restaurantName', restaurantName);
@@ -35,7 +35,7 @@ function AddRestaurantDialog({ setRestProps }) {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Restaurant added successfully:', data);
+                
                 toast.success('Restaurant added successfully!', {
                     position: "top-center",
                     autoClose: 5000,
